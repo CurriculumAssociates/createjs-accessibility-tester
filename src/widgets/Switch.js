@@ -1,4 +1,6 @@
 import AccessibilityModule from 'createjs-accessibility';
+import createjs from 'createjs';
+import _ from 'lodash';
 
 export default class Switch extends createjs.Container {
   constructor(width, height, tabIndex, callBack = _.noop) {
@@ -96,6 +98,7 @@ export default class Switch extends createjs.Container {
     this.offCircle.visible = value;
     this.offText.visible = value;
   }
+
   onFocus() {
     this.focusRect.visible = true;
   }

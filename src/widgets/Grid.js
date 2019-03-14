@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import AccessibilityModule from 'createjs-accessibility';
+import createjs from 'createjs';
 
 export default class Grid extends createjs.Container {
   constructor(data, tabIndex) {
@@ -37,7 +38,9 @@ export default class Grid extends createjs.Container {
       _.forEach(this.data[i], (data, index) => {
         let cell;
         if (data.type === 'header') {
-          cell = this._createCell({ value: data.value, index, bold: true, fontSize: 20 });
+          cell = this._createCell({
+            value: data.value, index, bold: true, fontSize: 20,
+          });
           row.addChild(cell);
           AccessibilityModule.register({
             displayObject: cell,
@@ -83,7 +86,7 @@ export default class Grid extends createjs.Container {
     });
   }
 
-  _createCell({ value, index, align = 'center', bold, fontSize }) {
+  _createCell({ value, index, align = 'center' }) {
     const cell = this._createContainer(this.cellWidths[index], this.cellHeight);
     const cellContent = value;
     cell.addChild(cellContent);
@@ -139,11 +142,11 @@ export default class Grid extends createjs.Container {
     return text;
   }
 
-  onFocus(evt) {
+  onFocus() {
     this.focusRect.visible = true;
   }
 
-  onBlur(evt) {
+  onBlur() {
     this.focusRect.visible = false;
   }
 }

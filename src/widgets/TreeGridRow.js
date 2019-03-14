@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import AccessibilityModule from 'createjs-accessibility';
+import createjs from 'createjs';
 
 export default class TreeGridRow extends createjs.Container {
   constructor(data, index, rowWidth, rowHeight, cellCount, tabIndex) {
@@ -9,7 +10,7 @@ export default class TreeGridRow extends createjs.Container {
       accessibleOptions: {
         level: data.level,
         rowIndex: index,
-        tabIndex
+        tabIndex,
       },
       displayObject: this,
       role: AccessibilityModule.ROLES.ROW,
@@ -70,14 +71,14 @@ export default class TreeGridRow extends createjs.Container {
     _.forEach(this.data.rowData, (data, index) => {
       let cell;
       if (this.type === 'header') {
-        cell = this._createCell({ data, index, bold: true, fontSize: 20 });
+        cell = this._createCell({ data, bold: true, fontSize: 20 });
         AccessibilityModule.register({
           displayObject: cell,
           parent: this,
           role: AccessibilityModule.ROLES.COLUMNHEADER,
         });
       } else {
-        cell = this._createCell({ data, index, fontSize: 14 });
+        cell = this._createCell({ data, fontSize: 14 });
         AccessibilityModule.register({
           displayObject: cell,
           parent: this,
@@ -96,9 +97,11 @@ export default class TreeGridRow extends createjs.Container {
   }
 
 
-  _createCell({ data, index, align = 'center', bold, fontSize }) {
+  _createCell({ data, align = 'center', bold, fontSize }) {
     const cell = this._createContainer(this.cellWidth, this.cellHeight);
-    const text = this._createText({ value: data, maxWidth: this.cellWidth, bold, fontSize });
+    const text = this._createText({
+      value: data, maxWidth: this.cellWidth, bold, fontSize,
+    });
     const textBounds = text.getBounds();
     cell.addChild(text);
     let left = 0;
@@ -134,7 +137,6 @@ export default class TreeGridRow extends createjs.Container {
   }
 
 
-
   _createContainer(width, height) {
     const container = new createjs.Container();
     container.setBounds(0, 0, width, height);
@@ -163,7 +165,7 @@ export default class TreeGridRow extends createjs.Container {
     evt.stopPropagation();
   }
 
-  onBlur(evt) {
+  onBlur() {
     this.focusRect.visible = false;
   }
 }

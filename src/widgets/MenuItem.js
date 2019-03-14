@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import AccessibilityModule from 'createjs-accessibility';
+import createjs from 'createjs';
 
 /**
  * See https://www.w3.org/TR/wai-aria/roles#menuitem
@@ -35,8 +36,7 @@ export default class MenuItem extends createjs.Container {
     this._focusIndicator.graphics
       .clear()
       .beginFill('#31c7ec')
-      .drawRect(x, bounds.y, width, bounds.height)
-    ;
+      .drawRect(x, bounds.y, width, bounds.height);
   }
 
   onFocus() {

@@ -1,4 +1,5 @@
 import AccessibilityModule from 'createjs-accessibility';
+import createjs from 'createjs';
 
 const ITEM_PADDING = 10;
 
@@ -32,8 +33,7 @@ export default class MenuBar extends createjs.Container {
     this._bg.graphics
       .clear()
       .beginFill('#aaaaaa')
-      .drawRect(0, 0, width, height)
-    ;
+      .drawRect(0, 0, width, height);
   }
 
   /**

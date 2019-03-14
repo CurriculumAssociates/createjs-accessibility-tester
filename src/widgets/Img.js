@@ -1,4 +1,5 @@
 import AccessibilityModule from 'createjs-accessibility';
+import createjs from 'createjs';
 
 export default class Img extends createjs.Container {
   constructor(options, width, height) {
@@ -11,7 +12,7 @@ export default class Img extends createjs.Container {
         src: options.src,
         width,
       },
-      displayObject: this, 
+      displayObject: this,
       role: AccessibilityModule.ROLES.IMG,
     });
     this._options = options;

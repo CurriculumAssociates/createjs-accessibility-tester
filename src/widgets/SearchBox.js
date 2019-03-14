@@ -1,6 +1,7 @@
 import _ from 'lodash';
-import SingleLineTextInput from './SingleLineTextInput.js';
+import createjs from 'createjs';
 import AccessibilityModule from 'createjs-accessibility';
+import SingleLineTextInput from './SingleLineTextInput';
 
 export default class SearchBox extends SingleLineTextInput {
   constructor(width, height, tabIndex, listArr, placeholderText) {

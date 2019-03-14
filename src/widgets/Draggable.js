@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import KeyCodes from 'keycodes-enum';
-import MenuItem from './MenuItem.js';
-import Button from './Button.js';
 import AccessibilityModule from 'createjs-accessibility';
+import createjs from 'createjs';
+import MenuItem from './MenuItem';
+import Button from './Button';
 
 export default class Draggable extends createjs.Container {
   constructor(options, dropArr, tabIndex, callBack) {
@@ -212,7 +213,7 @@ export default class Draggable extends createjs.Container {
     }
   }
 
-  showHideMenu(evt) {
+  showHideMenu() {
     this.toggleMenuVisibility(!this.menuItemContainer.visible);
   }
 }

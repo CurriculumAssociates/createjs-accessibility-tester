@@ -1,4 +1,5 @@
 import AccessibilityModule from 'createjs-accessibility';
+import createjs from 'createjs';
 
 export default class CheckBox extends createjs.Container {
   constructor(width, height, tabIndex, callBack = () => {}) {

@@ -1,50 +1,50 @@
 import _ from 'lodash';
 import AccessibilityModule from 'createjs-accessibility';
-import Article from './Article.js';
-import Button from './Button.js';
-import Img from './Img.js';
-import ListBox from './ListBox.js';
-import Link from './Link.js';
-import ListItem from './ListItem.js';
-import MenuBar from './MenuBar.js';
-import Menu from './Menu.js';
-import MenuItem from './MenuItem.js';
-import MenuItemCheckBox from './MenuItemCheckBox.js';
-import MenuItemRadio from './MenuItemRadio.js';
-import MultiListBox from './MultiListBox.js';
-import Option from './Option.js';
-import OrderedList from './OrderedList.js';
-import SingleLineTextInput from './SingleLineTextInput.js';
-import MultiLineTextInput from './MultiLineTextInput.js';
-import UnorderedList from './UnorderedList.js';
-import CheckBox from './CheckBox.js';
-import SearchBox from './SearchBox.js';
-import Search from './Search.js';
-import Radio from './Radio.js';
-import RadioGroup from './RadioGroup.js';
-import Draggable from './Draggable.js';
-import Slider from './Slider.js';
-import Table from './Table.js';
-import Switch from './Switch.js';
-import Tooltip from './Tooltip.js';
-import ProgressBar from './ProgressBar.js';
-import Figure from './Figure.js';
-import SpinButton from './SpinButton.js';
-import Grid from './Grid.js';
-import Tree from './Tree.js';
-import TreeItem from './TreeItem.js';
-import Separator from './Separator.js';
-import Dialog from './Dialog.js';
-import ScrollBar from './ScrollBar.js';
-import ToolBar from './ToolBar.js';
-import TabList from './TabList.js';
-import Tab from './Tab.js';
-import TabPanel from './TabPanel.js';
-import Feed from './Feed.js';
-import TreeGrid from './TreeGrid.js';
-import FormatText from './FormatText.js';
-import AlertDialog from './AlertDialog.js';
-import Marquee from './Marquee.js';
+import createjs from 'createjs';
+import Article from './Article';
+import Button from './Button';
+import Img from './Img';
+import ListBox from './ListBox';
+import Link from './Link';
+import ListItem from './ListItem';
+import MenuBar from './MenuBar';
+import Menu from './Menu';
+import MenuItem from './MenuItem';
+import MenuItemCheckBox from './MenuItemCheckBox';
+import MenuItemRadio from './MenuItemRadio';
+import MultiListBox from './MultiListBox';
+import Option from './Option';
+import OrderedList from './OrderedList';
+import SingleLineTextInput from './SingleLineTextInput';
+import MultiLineTextInput from './MultiLineTextInput';
+import UnorderedList from './UnorderedList';
+import CheckBox from './CheckBox';
+import Search from './Search';
+import Radio from './Radio';
+import RadioGroup from './RadioGroup';
+import Draggable from './Draggable';
+import Slider from './Slider';
+import Table from './Table';
+import Switch from './Switch';
+import Tooltip from './Tooltip';
+import ProgressBar from './ProgressBar';
+import Figure from './Figure';
+import SpinButton from './SpinButton';
+import Grid from './Grid';
+import Tree from './Tree';
+import TreeItem from './TreeItem';
+import Separator from './Separator';
+import Dialog from './Dialog';
+import ScrollBar from './ScrollBar';
+import ToolBar from './ToolBar';
+import TabList from './TabList';
+import Tab from './Tab';
+import TabPanel from './TabPanel';
+import Feed from './Feed';
+import TreeGrid from './TreeGrid';
+import FormatText from './FormatText';
+import AlertDialog from './AlertDialog';
+import Marquee from './Marquee';
 
 import imgTestSrc from './media/Curriculum-Associates-Logo-964x670.png';
 
@@ -62,8 +62,7 @@ export default class AppWindow extends createjs.Container {
       '_showListTestCase', '_showArticleTestCase', '_showCheckBoxTestCase', '_showSearchTestCase',
       '_showSliderTestCase', '_showMenuItemCheckBoxTestCase', '_showMenuItemRadioTestCase',
       '_showRadioGroupAndProgressBarTestCase', '_showGridTestCase', '_showTreeTestCase',
-      '_showFeedTestCase', '_showTreeGridTestCase', '_showTextFormatCase'
-    );
+      '_showFeedTestCase', '_showTreeGridTestCase', '_showTextFormatCase');
     AccessibilityModule.register({
       displayObject: this,
       role: AccessibilityModule.ROLES.NONE,
@@ -179,7 +178,7 @@ export default class AppWindow extends createjs.Container {
     // todo
   }
 
-  _createMenu(width, height) {
+  _createMenu(width) {
     this._nextTab = 1;
 
     this.nav = new createjs.Container();
@@ -228,14 +227,14 @@ export default class AppWindow extends createjs.Container {
       },
     };
 
-    _(testCasesGroup).forEach((group, key) => {
+    _(testCasesGroup).forEach((group) => {
       const { classRef, testCases } = group;
       const listenerAsCallback = classRef === MenuItemCheckBox;
       _.forEach(testCases, (testCase) => {
         const item = new classRef(
           testCase.name,
           this._nextTab++,
-          listenerAsCallback ? testCase.listener : _.noop()
+          listenerAsCallback ? testCase.listener : _.noop(),
         );
         !listenerAsCallback && item.addEventListener('click', testCase.listener);
         item.addEventListener('keyboardClick', testCase.listener);
@@ -266,7 +265,6 @@ export default class AppWindow extends createjs.Container {
       menuItemRadioArray.push(item);
     });
     this.menuItemRadioArray = menuItemRadioArray;
-
 
 
     // todo: add a menu for testing checkbox and radio menu items, as well as popup menus inside another menu
@@ -391,14 +389,24 @@ export default class AppWindow extends createjs.Container {
   _showRadioGroupAndProgressBarTestCase() {
     this._clearScreen();
     const PizzaCrustData = [
-      { name: 'Pizza Crust', value: 'Regular Margherita', position: 1, size: 3 },
-      { name: 'Pizza Crust', value: 'Mexican Green Wave', position: 2, size: 3 },
-      { name: 'Pizza Crust', value: 'Veg Extravaganza', position: 3, size: 3 },
+      {
+        name: 'Pizza Crust', value: 'Regular Margherita', position: 1, size: 3,
+      },
+      {
+        name: 'Pizza Crust', value: 'Mexican Green Wave', position: 2, size: 3,
+      },
+      {
+        name: 'Pizza Crust', value: 'Veg Extravaganza', position: 3, size: 3,
+      },
     ];
 
     const PizzaDeliveryData = [
-      { name: 'Pizza Delivery', value: 'Pickup', position: 1, size: 2 },
-      { name: 'Pizza Delivery', value: 'Home Delivery', position: 2, size: 2 },
+      {
+        name: 'Pizza Delivery', value: 'Pickup', position: 1, size: 2,
+      },
+      {
+        name: 'Pizza Delivery', value: 'Home Delivery', position: 2, size: 2,
+      },
     ];
 
     let count = 0;
@@ -474,7 +482,9 @@ export default class AppWindow extends createjs.Container {
       role: AccessibilityModule.ROLES.NONE,
     });
 
-    const radioGroup1 = new RadioGroup({ radioData: PizzaCrustData, name: 'Pizza Crust', tabIndex: this._nextTab++, callBack: _.once(onRadioSelect) });
+    const radioGroup1 = new RadioGroup({
+      radioData: PizzaCrustData, name: 'Pizza Crust', tabIndex: this._nextTab++, callBack: _.once(onRadioSelect),
+    });
     radioGroup1.x = 100;
     radioGroup1.y = 100;
     this._contentArea.addChild(radioGroup1);
@@ -493,7 +503,9 @@ export default class AppWindow extends createjs.Container {
       role: AccessibilityModule.ROLES.NONE,
     });
 
-    const radioGroup2 = new RadioGroup({ radioData: PizzaDeliveryData, name: 'Pizza Delivery', tabIndex: this._nextTab++, callBack: _.once(onRadioSelect) });
+    const radioGroup2 = new RadioGroup({
+      radioData: PizzaDeliveryData, name: 'Pizza Delivery', tabIndex: this._nextTab++, callBack: _.once(onRadioSelect),
+    });
     radioGroup2.x = radioGroup1.x;
     radioGroup2.y = 300;
     this._contentArea.addChild(radioGroup2);
@@ -864,40 +876,48 @@ export default class AppWindow extends createjs.Container {
     });
     document.addChild(openingLine);
 
+    const listItems = [];
     let options = {
       href: 'https://www.w3.org/WAI/WCAG20/quickref/?currentsidebar=#col_customize&levels=aaa',
       text: "W3C's guide to meeting WCAG requirements",
     };
-    const wcag = new Link(options);
-    wcag.x = 50;
-    wcag.y = 70;
-    document.addChild(wcag);
-    document.accessible.addChild(wcag);
+
+    listItems.push(new Link(options));
 
     options = {
       href: 'https://www.w3.org/TR/wai-aria-1.1/',
       text: "W3C's general guide to Accessible Rich Internet Applications",
     };
-    const aria = new Link(options);
-    aria.x = 50;
-    aria.y = 90;
-    document.addChild(aria);
-    document.accessible.addChild(aria);
+
+    listItems.push(new Link(options));
+
     options = {
       href: 'https://www.w3.org/TR/html-aria/#allowed-aria-roles-states-and-properties',
       text: "W3C's guide to allowed ARIA roles, states, and properties",
     };
-    const allowedAria = new Link(options);
-    allowedAria.x = 50;
-    allowedAria.y = 110;
-    document.addChild(allowedAria);
-    document.accessible.addChild(allowedAria);
+
+    listItems.push(new Link(options));
+
+    const unorderedList = new UnorderedList({ tabIndex: this._nextTab++ });
+    unorderedList.x = 50;
+    unorderedList.y = 80;
+    let y = 0;
+    for (let i = 0; i < listItems.length; i++) {
+      unorderedList.addListItem(listItems[i], y, i);
+
+      if (i === 2) { y += 60; }
+      if (i === 3) { y += 15; }
+      y += 20;
+    }
+
+    this._contentArea.addChild(document);
+    document.addChild(unorderedList);
+    document.accessible.addChild(unorderedList);
   }
 
   _showCheckBoxTestCase() {
     this._clearScreen();
 
-    const count = 0;
     let lasty = 0;
     let selectedCheckBoxes;
 
@@ -1045,7 +1065,7 @@ export default class AppWindow extends createjs.Container {
       dragArr.push(drag);
       drag.button.addEventListener('focus', (evt) => {
         _.forEach(dragArr, draggable => draggable.toggleMenuVisibility(false));
-        const target = evt.target;
+        const { target } = evt;
         target._onFocus();
       });
     }
@@ -1111,13 +1131,13 @@ export default class AppWindow extends createjs.Container {
     listItems.push(new ListItem(options));
     options.text = 'src/Roles.js - go to ROLE_TAG_MAPPING so that the Roles enum value gets converted to an html tag';
     listItems.push(new ListItem(options));
-    options.text = 'https://www.w3.org/TR/wai-aria/roles && https://www.w3.org/TR/wai-aria/rdf_model.png - go and check\n' +
-      "if there are new aria attributes that are going to be added to your new object (that aren't covered in a\n" +
-      'parent object) from the aria attribute page (link 1) and the flowchart (link 2), and look at the html tag\n' +
-      'page and pick and choose the necessary properties that pertain to how the object will be used and add\nthem in';
+    options.text = 'https://www.w3.org/TR/wai-aria/roles && https://www.w3.org/TR/wai-aria/rdf_model.png - go and check\n'
+      + "if there are new aria attributes that are going to be added to your new object (that aren't covered in a\n"
+      + 'parent object) from the aria attribute page (link 1) and the flowchart (link 2), and look at the html tag\n'
+      + 'page and pick and choose the necessary properties that pertain to how the object will be used and add\nthem in';
     listItems.push(new ListItem(options));
-    options.text = 'src/RolesObjects - create the new object, usually have to extend the accessibility object but that\n' +
-      "may be sufficient in the rare case. if the accessibility object is sufficient, you're done.";
+    options.text = 'src/RolesObjects - create the new object, usually have to extend the accessibility object but that\n'
+      + "may be sufficient in the rare case. if the accessibility object is sufficient, you're done.";
     listItems.push(new ListItem(options));
     options.text = 'src/RoleObjectFactory.js - actually instantiate your new object in the switch statement';
     listItems.push(new ListItem(options));
@@ -1152,22 +1172,24 @@ export default class AppWindow extends createjs.Container {
     this._clearScreen();
 
     const openingParagraph = new createjs.Text(
-      'Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and\n' +
-      'nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the\n' +
-      'world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing\n' +
-      'grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily\n' +
-      'pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever\n' +
-      'my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from\n' +
-      "deliberately stepping into the street, and methodically knocking people's hats off—then, I account it high time\n" +
-      'to get to sea as soon as I can. This is my substitute for pistol and ball. With a philosophical flourish Cato\n' +
-      'throws himself upon his sword; I quietly take to the ship. There is nothing surprising in this. If they but knew it,\n' +
-      'almost all men in their degree, some time or other, cherish very nearly the same feelings towards the ocean\nwith me.', '16px Arial');
+      'Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and\n'
+      + 'nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the\n'
+      + 'world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing\n'
+      + 'grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily\n'
+      + 'pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever\n'
+      + 'my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from\n'
+      + "deliberately stepping into the street, and methodically knocking people's hats off—then, I account it high time\n"
+      + 'to get to sea as soon as I can. This is my substitute for pistol and ball. With a philosophical flourish Cato\n'
+      + 'throws himself upon his sword; I quietly take to the ship. There is nothing surprising in this. If they but knew it,\n'
+      + 'almost all men in their degree, some time or other, cherish very nearly the same feelings towards the ocean\nwith me.', '16px Arial',
+    );
 
     const secondParagraph = new createjs.Text(
-      'There now is your insular city of the Manhattoes, belted round by wharves as Indian isles by coral\n' +
-      'reefs—commerce surrounds it with her surf. Right and left, the streets take you waterward. Its extreme\n' +
-      'downtown is the battery, where that noble mole is washed by waves, and cooled by breezes, which a few hours\n' +
-      'previous were out of sight of land. Look at the crowds of water-gazers there.', '16px Arial');
+      'There now is your insular city of the Manhattoes, belted round by wharves as Indian isles by coral\n'
+      + 'reefs—commerce surrounds it with her surf. Right and left, the streets take you waterward. Its extreme\n'
+      + 'downtown is the battery, where that noble mole is washed by waves, and cooled by breezes, which a few hours\n'
+      + 'previous were out of sight of land. Look at the crowds of water-gazers there.', '16px Arial',
+    );
     AccessibilityModule.register({
       displayObject: secondParagraph,
       role: AccessibilityModule.ROLES.NONE,
@@ -1212,10 +1234,10 @@ export default class AppWindow extends createjs.Container {
     });
     this._contentArea.accessible.addChild(complementary);
 
-    const sumaryText = 'SUMMARY: \n' +
-                        'Ishmael explains that, whenever he feels depressed and suicidal, he always goes to sea.\n' +
-                        'Ishmael claims that most people and most cultures around the world have a special attraction \n' +
-                        'to water in general and the sea in particular.';
+    const sumaryText = 'SUMMARY: \n'
+                        + 'Ishmael explains that, whenever he feels depressed and suicidal, he always goes to sea.\n'
+                        + 'Ishmael claims that most people and most cultures around the world have a special attraction \n'
+                        + 'to water in general and the sea in particular.';
     const summary = new createjs.Text(sumaryText, '16px Arial');
     AccessibilityModule.register({
       displayObject: summary,
@@ -1229,10 +1251,12 @@ export default class AppWindow extends createjs.Container {
     complementary.y = article.y + article.getBounds().height + 10;
 
     const loop = -1; // Sets the number of times the marquee will scroll. If no value is specified, the default value is −1, which means the marquee will scroll continuously.
-    let direction = 'right'; // left, right, up and down
-    let behaviour = 'scroll'; // scroll, slide and alternate
-    let text = 'Moby Dick (1956 film) Release date June 27, 1956 in the United States';
-    const marquee = new Marquee({ text, behaviour, direction, loop });
+    const direction = 'right'; // left, right, up and down
+    const behaviour = 'scroll'; // scroll, slide and alternate
+    const text = 'Moby Dick (1956 film) Release date June 27, 1956 in the United States';
+    const marquee = new Marquee({
+      text, behaviour, direction, loop,
+    });
     this._contentArea.addChild(marquee);
     this._contentArea.accessible.addChild(marquee);
   }
@@ -1284,10 +1308,10 @@ export default class AppWindow extends createjs.Container {
               href: 'https://en.wikipedia.org/wiki/Earth',
               text: 'Earth wikipedia reference',
             },
-            description: 'Earth is the third planet from the Sun and the only astronomical object known to harbor life. According to radiometric dating and other\n' +
-                           "sources of evidence, Earth formed over 4.5 billion years ago.[24][25][26] Earth's gravity interacts with other objects in space,  \n" +
-                           "especially the Sun and the Moon, Earth's only natural satellite. Earth revolves around the Sun in 365.26 days, a period known as  \n" +
-                           'an Earth year. During this time, Earth rotates about its axis about 366.26 times',
+            description: 'Earth is the third planet from the Sun and the only astronomical object known to harbor life. According to radiometric dating and other\n'
+                           + "sources of evidence, Earth formed over 4.5 billion years ago.[24][25][26] Earth's gravity interacts with other objects in space,  \n"
+                           + "especially the Sun and the Moon, Earth's only natural satellite. Earth revolves around the Sun in 365.26 days, a period known as  \n"
+                           + 'an Earth year. During this time, Earth rotates about its axis about 366.26 times',
           },
         },
         {
@@ -1302,9 +1326,9 @@ export default class AppWindow extends createjs.Container {
               href: 'https://en.wikipedia.org/wiki/Earth#Orbit_and_rotation',
               text: 'Earth Orbit',
             },
-            description: "Earth's rotation period relative to the Sun—its mean solar day—is 86,400 seconds of mean solar time (86,400.0025 SI seconds). \n" +
-                            "[182] Because Earth's solar day is now slightly longer than it was during the 19th century due to tidal deceleration,  \n" +
-                            'each day varies between 0 and 2 SI ms longe',
+            description: "Earth's rotation period relative to the Sun—its mean solar day—is 86,400 seconds of mean solar time (86,400.0025 SI seconds). \n"
+                            + "[182] Because Earth's solar day is now slightly longer than it was during the 19th century due to tidal deceleration,  \n"
+                            + 'each day varies between 0 and 2 SI ms longe',
           },
         },
         {
@@ -1319,12 +1343,12 @@ export default class AppWindow extends createjs.Container {
               href: 'https://en.wikipedia.org/wiki/Earth#Orbit_and_rotation',
               text: 'Earth Rotation',
             },
-            description: 'Earth orbits the Sun at an average distance of about 150 million km (93 million mi) every 365.2564 mean solar days, or one sidereal \n' +
-                           'year. This gives an apparent movement of the Sun eastward with respect to the stars at a rate of about 1°/day, which is one \n' +
-                           'apparent Sun or Moon diameter every 12 hours. Due to this motion, on average it takes 24 hours—a solar day—for Earth to complete \n' +
-                           'a full rotation about its axis so that the Sun returns to the meridian. The orbital speed of Earth averages about 29.78 km/s \n' +
-                           "(107,200 km/h; 66,600 mph), which is fast enough to travel a distance equal to Earth's diameter, about 12,742 km (7,918 mi),\n" +
-                           'in seven minutes, and the distance to the Moon, 384,000 km (239,000 mi), in about 3.5 hours.[3]',
+            description: 'Earth orbits the Sun at an average distance of about 150 million km (93 million mi) every 365.2564 mean solar days, or one sidereal \n'
+                           + 'year. This gives an apparent movement of the Sun eastward with respect to the stars at a rate of about 1°/day, which is one \n'
+                           + 'apparent Sun or Moon diameter every 12 hours. Due to this motion, on average it takes 24 hours—a solar day—for Earth to complete \n'
+                           + 'a full rotation about its axis so that the Sun returns to the meridian. The orbital speed of Earth averages about 29.78 km/s \n'
+                           + "(107,200 km/h; 66,600 mph), which is fast enough to travel a distance equal to Earth's diameter, about 12,742 km (7,918 mi),\n"
+                           + 'in seven minutes, and the distance to the Moon, 384,000 km (239,000 mi), in about 3.5 hours.[3]',
           },
         },
       ],
@@ -1352,9 +1376,9 @@ export default class AppWindow extends createjs.Container {
               href: 'https://en.wikipedia.org/wiki/Moon',
               text: 'Moon Wikipedia reference',
             },
-            description: "The Moon is an astronomical body that orbits planet Earth and is Earth's only permanent natural satellite. It is the fifth-largest natural \n" +
-                            'satellite in the Solar System, and the largest among planetary satellites relative to the size of the planet that it orbits (its primary).  \n' +
-                            "The Moon is after Jupiter's satellite Io the second-densest satellite in the Solar System among those whose densities are known.",
+            description: "The Moon is an astronomical body that orbits planet Earth and is Earth's only permanent natural satellite. It is the fifth-largest natural \n"
+                            + 'satellite in the Solar System, and the largest among planetary satellites relative to the size of the planet that it orbits (its primary).  \n'
+                            + "The Moon is after Jupiter's satellite Io the second-densest satellite in the Solar System among those whose densities are known.",
 
           },
         },
@@ -1370,12 +1394,12 @@ export default class AppWindow extends createjs.Container {
               href: 'https://en.wikipedia.org/wiki/Moon#Orbit',
               text: 'Moon Orbit',
             },
-            description: 'The Moon makes a complete orbit around Earth with respect to the fixed stars about once every 27.3 days[g] (its sidereal period). \n' +
-                           'However, because Earth is moving in its orbit around the Sun at the same time, it takes slightly longer for the Moon to show the \n' +
-                           'same phase to Earth, which is about 29.5 days[h] (its synodic period).[66] Unlike most satellites of other planets, the Moon orbits \n' +
-                           "closer to the ecliptic plane than to the planet's equatorial plane. The Moon's orbit is subtly perturbed by the Sun and Earth in many \n" +
-                           "small, complex and interacting ways. For example, the plane of the Moon's orbit gradually rotates once every 18.61[131] years, which \n" +
-                           'affects other aspects of lunar motion. ',
+            description: 'The Moon makes a complete orbit around Earth with respect to the fixed stars about once every 27.3 days[g] (its sidereal period). \n'
+                           + 'However, because Earth is moving in its orbit around the Sun at the same time, it takes slightly longer for the Moon to show the \n'
+                           + 'same phase to Earth, which is about 29.5 days[h] (its synodic period).[66] Unlike most satellites of other planets, the Moon orbits \n'
+                           + "closer to the ecliptic plane than to the planet's equatorial plane. The Moon's orbit is subtly perturbed by the Sun and Earth in many \n"
+                           + "small, complex and interacting ways. For example, the plane of the Moon's orbit gradually rotates once every 18.61[131] years, which \n"
+                           + 'affects other aspects of lunar motion. ',
           },
         },
         {
@@ -1390,11 +1414,11 @@ export default class AppWindow extends createjs.Container {
               href: 'https://en.wikipedia.org/wiki/Moon',
               text: 'Moon Rotation',
             },
-            description: 'The Moon is in synchronous rotation with Earth, and thus always shows the same side to Earth, the near side. The near side is \n' +
-                            'marked by dark volcanic maria that fill the spaces between the bright ancient crustal highlands and the prominent impact craters. After the\n' +
-                            "Sun, the Moon is the second-brightest regularly visible celestial object in Earth's sky. Its surface is actually dark, although compared\n" +
-                            'to the night sky it appears very bright, with a reflectance just slightly higher than that of worn asphalt. Its gravitational influence \n' +
-                            'produces the ocean tides, body tides, and the slight lengthening of the day.',
+            description: 'The Moon is in synchronous rotation with Earth, and thus always shows the same side to Earth, the near side. The near side is \n'
+                            + 'marked by dark volcanic maria that fill the spaces between the bright ancient crustal highlands and the prominent impact craters. After the\n'
+                            + "Sun, the Moon is the second-brightest regularly visible celestial object in Earth's sky. Its surface is actually dark, although compared\n"
+                            + 'to the night sky it appears very bright, with a reflectance just slightly higher than that of worn asphalt. Its gravitational influence \n'
+                            + 'produces the ocean tides, body tides, and the slight lengthening of the day.',
           },
         },
       ],
@@ -1422,11 +1446,11 @@ export default class AppWindow extends createjs.Container {
               href: 'https://en.wikipedia.org/wiki/Mars',
               text: 'Mars Wikipedia reference',
             },
-            description: 'Mars is the fourth planet from the Sun and the second-smallest planet in the Solar System after Mercury. In English, Mars carries\n' +
-                            "a name of  the Roman god of war, and is often referred to as the 'Red Planet' because the reddish iron oxide prevalent on its surface \n" +
-                            'gives it a reddish appearance that is distinctive among the astronomical bodies visible to the naked eye.[17] Mars is a terrestrial\n' +
-                            'planet with a thin atmosphere, having surface features reminiscent both of the impact craters of the Moon and the valleys, deserts,\n' +
-                            'and polar ice caps of Earth.',
+            description: 'Mars is the fourth planet from the Sun and the second-smallest planet in the Solar System after Mercury. In English, Mars carries\n'
+                            + "a name of  the Roman god of war, and is often referred to as the 'Red Planet' because the reddish iron oxide prevalent on its surface \n"
+                            + 'gives it a reddish appearance that is distinctive among the astronomical bodies visible to the naked eye.[17] Mars is a terrestrial\n'
+                            + 'planet with a thin atmosphere, having surface features reminiscent both of the impact craters of the Moon and the valleys, deserts,\n'
+                            + 'and polar ice caps of Earth.',
           },
         },
         {
@@ -1441,11 +1465,11 @@ export default class AppWindow extends createjs.Container {
               href: 'https://en.wikipedia.org/wiki/Mars#Orbit_and_rotation',
               text: 'Mars Orbit',
             },
-            description: "Mars is about 230 million km (143 million mi) from the Sun; its orbital period is 687 (Earth) days, depicted in red. Earth's orbit is in blue.\n" +
-                           "Mars's average distance from the Sun is roughly 230 million km (143 million mi), and its orbital period is 687 (Earth) days. The solar day \n" +
-                           '(or sol) on Mars is only slightly longer than an Earth day: 24 hours, 39 minutes, and 35.244 seconds.[179] A Martian year is equal to\n' +
-                           '1.8809 Earth years, or 1 year, 320 days, and 18.2 hours The axial tilt of Mars is 25.19 degrees relative to its orbital plane, which \n' +
-                           'is similar to the axial tilt of Earth.',
+            description: "Mars is about 230 million km (143 million mi) from the Sun; its orbital period is 687 (Earth) days, depicted in red. Earth's orbit is in blue.\n"
+                           + "Mars's average distance from the Sun is roughly 230 million km (143 million mi), and its orbital period is 687 (Earth) days. The solar day \n"
+                           + '(or sol) on Mars is only slightly longer than an Earth day: 24 hours, 39 minutes, and 35.244 seconds.[179] A Martian year is equal to\n'
+                           + '1.8809 Earth years, or 1 year, 320 days, and 18.2 hours The axial tilt of Mars is 25.19 degrees relative to its orbital plane, which \n'
+                           + 'is similar to the axial tilt of Earth.',
           },
         },
         {
@@ -1460,13 +1484,13 @@ export default class AppWindow extends createjs.Container {
               href: 'https://en.wikipedia.org/wiki/Mars#Orbit_and_rotation',
               text: 'Mars Rotation',
             },
-            description: 'Mars has a relatively pronounced orbital eccentricity of about 0.09; of the seven other planets in the Solar System, only Mercury has a \n' +
-                            'larger orbital eccentricity. It is known that in the past, Mars has had a much more circular orbit. At one point, 1.35 million Earth years ago,\n' +
-                            "Mars had an eccentricity of roughly 0.002, much less than that of Earth today.[180] Mars's cycle of eccentricity is 96,000 Earth years\n" +
-                            "compared to Earth's cycle of 100,000 years.[181] Mars has a much longer cycle of eccentricity, with a period of 2.2 million Earth years, \n" +
-                            'and this overshadows the 96,000-year cycle in the eccentricity graphs. For the last 35,000 years, the orbit of Mars has been getting\n' +
-                            'slightly more eccentric because of the gravitational effects of the other planets. The closest distance between Earth and Mars will \n' +
-                            'continue to mildly decrease for the next 25,000 years',
+            description: 'Mars has a relatively pronounced orbital eccentricity of about 0.09; of the seven other planets in the Solar System, only Mercury has a \n'
+                            + 'larger orbital eccentricity. It is known that in the past, Mars has had a much more circular orbit. At one point, 1.35 million Earth years ago,\n'
+                            + "Mars had an eccentricity of roughly 0.002, much less than that of Earth today.[180] Mars's cycle of eccentricity is 96,000 Earth years\n"
+                            + "compared to Earth's cycle of 100,000 years.[181] Mars has a much longer cycle of eccentricity, with a period of 2.2 million Earth years, \n"
+                            + 'and this overshadows the 96,000-year cycle in the eccentricity graphs. For the last 35,000 years, the orbit of Mars has been getting\n'
+                            + 'slightly more eccentric because of the gravitational effects of the other planets. The closest distance between Earth and Mars will \n'
+                            + 'continue to mildly decrease for the next 25,000 years',
           },
         },
       ],
@@ -1487,7 +1511,7 @@ export default class AppWindow extends createjs.Container {
 
     _.forEach(planetsData, (planet, index) => {
       const planetClick = () => {
-        _.forEach(this.planetBtnArry, (planetBtn, index) => {
+        _.forEach(this.planetBtnArry, (planetBtn) => {
           planetBtn.accessible.pressed = false;
         });
         this.planetBtnArry[index].accessible.pressed = true;
@@ -1580,15 +1604,16 @@ export default class AppWindow extends createjs.Container {
     this._contentArea.accessible.addChild(feed);
 
     const openingParagraph = new createjs.Text(
-      'Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and\n' +
-         'nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the\n' +
-         'world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing\n' +
-         'grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily\n' +
-         'pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever\n' +
-         'my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from\n' +
-         "deliberately stepping into the street, and methodically knocking people's hats off—then, I account it high time\n" +
-         'to get to sea as soon as I can. This is my substitute for pistol and ball. With a philosophical flourish Cato\n' +
-         'throws himself upon his sword; I quietly take to the ship.', '16px Arial');
+      'Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and\n'
+         + 'nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the\n'
+         + 'world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing\n'
+         + 'grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily\n'
+         + 'pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever\n'
+         + 'my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from\n'
+         + "deliberately stepping into the street, and methodically knocking people's hats off—then, I account it high time\n"
+         + 'to get to sea as soon as I can. This is my substitute for pistol and ball. With a philosophical flourish Cato\n'
+         + 'throws himself upon his sword; I quietly take to the ship.', '16px Arial',
+    );
     AccessibilityModule.register({
       displayObject: openingParagraph,
       role: AccessibilityModule.ROLES.NONE,
@@ -1601,11 +1626,12 @@ export default class AppWindow extends createjs.Container {
     });
 
     const secondParagraph = new createjs.Text(
-      'All day long we seemed to dawdle through a country which was full of beauty of every kind. Sometimes we \n' +
-         'saw little towns or castles on the top of steep hills such as we see in old missals; sometimes we ran by rivers \n' +
-         'and streams which seemed from the wide stony margin on each side of them to be subject to great floods.\n' +
-         'It takes  a lot of water, and running strong, to sweep the outside edge of a river clear. At every station \n' +
-         'there were groups of people, sometimes crowds, and in all sorts of attire.', '16px Arial');
+      'All day long we seemed to dawdle through a country which was full of beauty of every kind. Sometimes we \n'
+         + 'saw little towns or castles on the top of steep hills such as we see in old missals; sometimes we ran by rivers \n'
+         + 'and streams which seemed from the wide stony margin on each side of them to be subject to great floods.\n'
+         + 'It takes  a lot of water, and running strong, to sweep the outside edge of a river clear. At every station \n'
+         + 'there were groups of people, sometimes crowds, and in all sorts of attire.', '16px Arial',
+    );
     AccessibilityModule.register({
       displayObject: secondParagraph,
       role: AccessibilityModule.ROLES.NONE,
@@ -1618,9 +1644,10 @@ export default class AppWindow extends createjs.Container {
     });
 
     const thirdParagraph = new createjs.Text(
-      'On Greenhaven, everything had evidently been done the hard way. She had heard about that facet of the\n' +
-         'Greenie character before leaving the ship, and she now wished that she had listened more carefully. It \n' +
-         'was difficult to picture in her mind just how far away that spaceship was by this time.', '16px Arial');
+      'On Greenhaven, everything had evidently been done the hard way. She had heard about that facet of the\n'
+         + 'Greenie character before leaving the ship, and she now wished that she had listened more carefully. It \n'
+         + 'was difficult to picture in her mind just how far away that spaceship was by this time.', '16px Arial',
+    );
     AccessibilityModule.register({
       displayObject: thirdParagraph,
       role: AccessibilityModule.ROLES.NONE,
@@ -1848,10 +1875,10 @@ export default class AppWindow extends createjs.Container {
 
     for (let i = 0; i < sliderData.length; i++) {
       const name = sliderData[i].label;
-      const min = sliderData[i].min;
-      const max = sliderData[i].max;
-      const step = sliderData[i].step;
-      const value = sliderData[i].value;
+      const { min } = sliderData[i];
+      const { max } = sliderData[i];
+      const { step } = sliderData[i];
+      const { value } = sliderData[i];
       const labelValue = new createjs.Text(`${name}`, '14px Arial', `${sliderData[i].rgb}`);
       this.colorSliderContainer.addChild(labelValue);
       AccessibilityModule.register({
@@ -1878,6 +1905,7 @@ export default class AppWindow extends createjs.Container {
 
     callBack();
   }
+
   _showSearchTestCase() {
     this._clearScreen();
 
@@ -1896,7 +1924,7 @@ export default class AppWindow extends createjs.Container {
     const listObjectArr = [];
 
     // Making bullet list in canvas
-    bulletList.forEach((sentence, i) => {
+    bulletList.forEach((sentence) => {
       // Text
       const textObj = new createjs.Text().set({
         text: sentence,
@@ -2225,7 +2253,9 @@ export default class AppWindow extends createjs.Container {
     const horizontalScale = this.createText('1', x, y, false);
     x += horizontalScale.getBounds().width + padding;
 
-    const scaleXButton = this.createSpinButton({ options, textContainer: horizontalScale, callback: transformShape, tabIndex: this._nextTab++ }, x, y);
+    const scaleXButton = this.createSpinButton({
+      options, textContainer: horizontalScale, callback: transformShape, tabIndex: this._nextTab++,
+    }, x, y);
     x += scaleXButton.getBounds().width + padding;
 
     label = this.createText('scaleY', x, y);
@@ -2234,7 +2264,9 @@ export default class AppWindow extends createjs.Container {
     const verticalScale = this.createText('1', x, y, false);
     x += verticalScale.getBounds().width + padding;
 
-    const scaleYButton = this.createSpinButton({ options, textContainer: verticalScale, callback: transformShape, tabIndex: this._nextTab++ }, x, y);
+    const scaleYButton = this.createSpinButton({
+      options, textContainer: verticalScale, callback: transformShape, tabIndex: this._nextTab++,
+    }, x, y);
     x += scaleYButton.getBounds().width + padding + 20;
 
     options.maxValue = 50;
@@ -2246,7 +2278,9 @@ export default class AppWindow extends createjs.Container {
     const horizontalSkew = this.createText('1', x, y, false);
     x += horizontalSkew.getBounds().width + padding;
 
-    const skewXButton = this.createSpinButton({ options, textContainer: horizontalSkew, callback: transformShape, tabIndex: this._nextTab++ }, x, y);
+    const skewXButton = this.createSpinButton({
+      options, textContainer: horizontalSkew, callback: transformShape, tabIndex: this._nextTab++,
+    }, x, y);
     x += skewXButton.getBounds().width + padding;
 
     label = this.createText('skewY', x, y);
@@ -2255,7 +2289,9 @@ export default class AppWindow extends createjs.Container {
     const verticalSkew = this.createText('1', x, y, false);
     x += verticalSkew.getBounds().width + padding;
 
-    const skewYButton = this.createSpinButton({ options, textContainer: verticalSkew, callback: transformShape, tabIndex: this._nextTab++ }, x, y);
+    const skewYButton = this.createSpinButton({
+      options, textContainer: verticalSkew, callback: transformShape, tabIndex: this._nextTab++,
+    }, x, y);
     x += skewYButton.getBounds().width + padding + 20;
 
     options.minValue = 0;
@@ -2269,7 +2305,9 @@ export default class AppWindow extends createjs.Container {
     const transformX = this.createText('0', x, y, false);
     x += transformX.getBounds().width + padding + 15;
 
-    const transformXButton = this.createSpinButton({ options, textContainer: transformX, callback: transformShape, tabIndex: this._nextTab++ }, x, y);
+    const transformXButton = this.createSpinButton({
+      options, textContainer: transformX, callback: transformShape, tabIndex: this._nextTab++,
+    }, x, y);
     x += transformXButton.getBounds().width + padding;
 
     label = this.createText('regY', x, y);
@@ -2277,8 +2315,6 @@ export default class AppWindow extends createjs.Container {
 
     const transformY = this.createText('0', x, y, false);
     x += transformY.getBounds().width + padding;
-
-    const transformYButton = this.createSpinButton({ options, textContainer: transformY, callback: transformShape, tabIndex: this._nextTab++ }, x, y);
   }
 
   createText(value, x, y, shouldAccesible = true) {
@@ -2497,6 +2533,9 @@ export default class AppWindow extends createjs.Container {
     const boldText = new FormatText(prefixText, 'Bold Text', AccessibilityModule.ROLES.FORMAT_TEXT_BOLD, 'bold', '22px', 'Arial');
     this.textFormat.addChild(boldText);
     this.textFormat.accessible.addChild(boldText);
+    this.textFormat.accessible.lang = 'en';
+    boldText.accessible.dir = 'rtl';
+    boldText.x = this.getBounds().width - boldText.getBounds().width;
     boldText.y = PADDING;
 
     const codeText = new FormatText(prefixText, 'Computer Code', AccessibilityModule.ROLES.FORMAT_TEXT_CODE, '', '22px', 'monospace');
@@ -2530,11 +2569,11 @@ export default class AppWindow extends createjs.Container {
     this.textFormat.accessible.addChild(keybordtext);
     keybordtext.y = insertedText.y + insertedText.getBounds().height + PADDING;
 
-    const preformatedTxt = 'Text in a pre element \n' +
-                          'is displayed in a fixed-width\n' +
-                          'font, and it preserves\n' +
-                          'both      spaces and\n' +
-                          'line breaks';
+    const preformatedTxt = 'Text in a pre element \n'
+                          + 'is displayed in a fixed-width\n'
+                          + 'font, and it preserves\n'
+                          + 'both      spaces and\n'
+                          + 'line breaks';
     const preformatedText = new FormatText(prefixText, preformatedTxt, AccessibilityModule.ROLES.FORMAT_TEXT_PREFORMAT, '', '22px', 'monospace');
     this.textFormat.addChild(preformatedText);
     this.textFormat.accessible.addChild(preformatedText);

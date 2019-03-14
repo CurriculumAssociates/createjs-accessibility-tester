@@ -1,5 +1,7 @@
-import _ from 'lodash';
 import AccessibilityModule from 'createjs-accessibility';
+import createjs from 'createjs';
+
+const date = new Date();
 
 export default class FormatText extends createjs.Container {
   constructor(prefixText, value, role, fontType = '', fontSize, fontFamily = 'Arial') {
@@ -27,7 +29,8 @@ export default class FormatText extends createjs.Container {
       role,
     });
     label.set({ x: prefix.getBounds().width, y: prefix.getBounds().y });
-    label.fontSize = fontSize.split('px')[0];
+    const size = fontSize.split('px')[0];
+    label.fontSize = size;
     this.label = label;
     this.formatText(role);
   }
@@ -100,7 +103,6 @@ export default class FormatText extends createjs.Container {
         break;
 
       case ROLES.FORMAT_TEXT_TIME:
-        const date = new Date();
         this.label.accessible._reactProps.dateTime = date;
         break;
       default:

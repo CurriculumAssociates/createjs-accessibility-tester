@@ -3,6 +3,7 @@ import _ from 'lodash';
 import KeyCodes from 'keycodes-enum';
 import TimelineMax from 'TimelineMax';
 import AccessibilityModule from 'createjs-accessibility';
+import createjs from 'createjs';
 
 const PAD = 2;
 const MODES = {
@@ -62,6 +63,8 @@ export default class SingleLineTextInput extends createjs.Container {
     this.addChild(placeholder);
     this.placeholder = placeholder;
     this.accessible.placeholder = placeholderText;
+    this.accessible.contenteditable = true;
+    this.accessible.spellcheck = true;
 
     this.addEventListener('click', this.onFocus);
     // todo: handle mouse based blur causing event

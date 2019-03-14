@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import AccessibilityModule from 'createjs-accessibility';
+import createjs from 'createjs';
 
 export default class MultiListBox extends createjs.Container {
   constructor(options, width, height, tabIndex) {

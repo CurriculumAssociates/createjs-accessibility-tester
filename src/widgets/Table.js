@@ -1,8 +1,11 @@
 import _ from 'lodash';
 import AccessibilityModule from 'createjs-accessibility';
+import createjs from 'createjs';
 
 export default class Table extends createjs.Container {
-  constructor({ headersData, data, showBorders = true, cellHeight = 100 }) {
+  constructor({
+    headersData, data, showBorders = true, cellHeight = 100,
+  }) {
     super();
     AccessibilityModule.register({
       displayObject: this,
@@ -39,7 +42,7 @@ export default class Table extends createjs.Container {
       const row = this._createContainer(this.totalWidth, this.cellHeight);
       this.addChild(row);
       AccessibilityModule.register({
-        displayObject: row, 
+        displayObject: row,
         parent: this,
         role: AccessibilityModule.ROLES.ROW,
       });
@@ -83,9 +86,13 @@ export default class Table extends createjs.Container {
     });
   }
 
-  _createCell({ value, index, align = 'center', bold, fontSize }) {
+  _createCell({
+    value, index, align = 'center', bold, fontSize,
+  }) {
     const cell = this._createContainer(this.cellWidths[index], this.cellHeight);
-    const text = this._createText({ value, maxWidth: this.cellWidths[index], bold, fontSize });
+    const text = this._createText({
+      value, maxWidth: this.cellWidths[index], bold, fontSize,
+    });
     const textBounds = text.getBounds();
     cell.addChild(text);
 
@@ -120,7 +127,9 @@ export default class Table extends createjs.Container {
     return container;
   }
 
-  _createText({ value, maxWidth, bold = false, fontSize = 18 }) {
+  _createText({
+    value, maxWidth, bold = false, fontSize = 18,
+  }) {
     const boldOption = bold ? 'bold' : '';
     const text = new createjs.Text().set({
       text: value,

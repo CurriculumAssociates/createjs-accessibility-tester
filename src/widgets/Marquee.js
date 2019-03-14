@@ -1,4 +1,6 @@
 import AccessibilityModule from 'createjs-accessibility';
+import createjs from 'createjs';
+import TimelineMax from 'TimelineMax';
 
 const CONTENT_AREA_WIDTH = 800;
 const CONTENT_AREA_HEIGHT = 600;
@@ -34,85 +36,90 @@ export default class Marquee extends createjs.Container {
       this.x = CONTENT_AREA_WIDTH;
       this.y = CONTENT_AREA_HEIGHT * 0.8;
     }
-    const config = {};
+    let config = {};
     const scroll = {
-      right : {
+      right: {
         x: -this.width,
         y: this.y,
       },
-      left :  {
+      left: {
         x: CONTENT_AREA_WIDTH + this.width,
         y: this.y,
       },
-      up : {
+      up: {
         x: this.x,
         y: -this.height,
       },
-      down:  {
+      down: {
         x: this.x,
         y: CONTENT_AREA_HEIGHT + this.height,
-      }
-    }
+      },
+    };
     const slide = {
-      right : {
+      right: {
         x: this.width * 0.5,
         y: this.y,
       },
-      left :  {
+      left: {
         x: CONTENT_AREA_WIDTH - this.width * 0.5,
         y: this.y,
       },
-      up : {
+      up: {
         x: this.x,
         y: this.height,
       },
-      down:  {
+      down: {
         x: this.x,
         y: CONTENT_AREA_HEIGHT - this.height * 6,
-      }
-    }
+      },
+    };
     const alternate = {
-      right : {
+      right: {
         x: this.width * 0.5,
         y: this.y,
       },
-      left :  {
+      left: {
         x: CONTENT_AREA_WIDTH - this.width * 0.5,
         y: this.y,
       },
-      up : {
+      up: {
         x: this.x,
         y: this.height,
       },
-      down:  {
+      down: {
         x: this.x,
         y: CONTENT_AREA_HEIGHT - this.height * 6,
+      },
+    };
+
+    switch (behaviour) {
+      case 'scroll':
+        config = {
+          yoyo: true,
+          repeat: loop,
+          x: scroll[direction].x,
+          y: scroll[direction].y,
+        };
+        break;
+      case 'slide':
+        config = {
+          yoyo: false,
+          repeat: 0,
+          x: slide[direction].x,
+          y: slide[direction].y,
+        };
+        break;
+      case 'alternate': {
+        config.yoyo = true;
+        config.repeat = loop;
+        config.x = alternate[direction].x;
+        config.y = alternate[direction].y;
       }
-    }
-    switch(behaviour) {
-      case 'scroll': {
-          config.repeat = loop;
-          config.yoyo = false;
-          config.x = scroll[direction].x;
-          config.y = scroll[direction].y;
-        }
         break;
-      case 'slide' : {
-          config.yoyo = false;
-          config.repeat = 0;
-          config.x = slide[direction].x;
-          config.y = slide[direction].y;
-        }
-        break;
-      case 'alternate' : {
-          config.yoyo = true;
-          config.repeat = loop;
-          config.x = alternate[direction].x;
-          config.y = alternate[direction].y;
-        }
+      default:
         break;
     }
-    let tl = new TimelineMax({ yoyo : config.yoyo, repeat: config.repeat});
+    const tl = new TimelineMax({ yoyo: config.yoyo, repeat: config.repeat });
     tl.to(this, DURATION, config);
   }
 }

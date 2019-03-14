@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import AccessibilityModule from 'createjs-accessibility';
+import createjs from 'createjs';
 
 export default class Tab extends createjs.Container {
   /**
@@ -10,7 +11,9 @@ export default class Tab extends createjs.Container {
    * @param {integer} size - size of the tab list
    */
 
-  constructor({ name, value, width = 300, height = 50, position = 1, size = 1, tabIndex, callback = _.noop }) {
+  constructor({
+    name, value, width = 300, height = 50, position = 1, size = 1, tabIndex, callback = _.noop,
+  }) {
     super();
     this.data = { name, value };
     this.width = width;

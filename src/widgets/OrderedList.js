@@ -1,4 +1,5 @@
 import AccessibilityModule from 'createjs-accessibility';
+import createjs from 'createjs';
 
 export default class OrderedList extends createjs.Container {
   constructor(options, tabIndex) {

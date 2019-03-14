@@ -1,8 +1,11 @@
 import AccessibilityModule from 'createjs-accessibility';
-import Button from './Button.js';
+import createjs from 'createjs';
+import Button from './Button';
 
 export default class SpinButton extends createjs.Container {
-  constructor({ options, textContainer, callback, tabIndex }) {
+  constructor({
+    options, textContainer, callback, tabIndex,
+  }) {
     super();
     const { maxValue, minValue } = options;
     this.tabIndex = tabIndex;

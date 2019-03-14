@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import AccessibilityModule from 'createjs-accessibility';
+import createjs from 'createjs';
 
 export default class Button extends createjs.Container {
   constructor(options, tabIndex, callBack = _.noop) {
@@ -64,7 +65,7 @@ export default class Button extends createjs.Container {
   }
 
   get enabled() {
-    this._enabled;
+    return this._enabled;
   }
 
   _onFocus() {

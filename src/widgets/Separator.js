@@ -1,4 +1,5 @@
 import AccessibilityModule from 'createjs-accessibility';
+import createjs from 'createjs';
 
 export default class Separator extends createjs.Container {
   constructor(width, height, orientation = 'horizontal') {

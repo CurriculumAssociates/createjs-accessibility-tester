@@ -1,9 +1,13 @@
 import AccessibilityModule from 'createjs-accessibility';
+import createjs from 'createjs';
+
 const ITEM_PADDING = 50;
 
 export default class ToolBar extends createjs.Container {
   constructor(width, height) {
     super();
+    this.width = width;
+    this.height = height;
     this._toolMenus = [];
     AccessibilityModule.register({
       displayObject: this,

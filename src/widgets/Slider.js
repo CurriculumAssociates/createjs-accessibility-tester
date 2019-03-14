@@ -1,4 +1,5 @@
 import AccessibilityModule from 'createjs-accessibility';
+import createjs from 'createjs';
 import _ from 'lodash';
 
 export default class Slider extends createjs.Container {
@@ -123,7 +124,6 @@ export default class Slider extends createjs.Container {
   _mousemove(event) {
     event.preventDefault();
     event.stopPropagation();
-    const mousePos = event.currentTarget.globalToLocal(event.stageX, event.stageY);
     const posX = _.min([
       event.stageX - this.x,
       this.width,

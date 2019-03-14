@@ -1,8 +1,8 @@
 import _ from 'lodash';
 
-import Radio from './Radio.js';
-import MenuItem from './MenuItem.js';
 import AccessibilityModule from 'createjs-accessibility';
+import Radio from './Radio';
+import MenuItem from './MenuItem';
 
 /**
  * See https://www.w3.org/TR/wai-aria/#menuitemcheckbox
@@ -12,7 +12,9 @@ export default class MenuItemRadio extends MenuItem {
   constructor(label, tabIndex, callBack = () => {}) {
     super(label, tabIndex);
     _.bindAll(this, 'keyboardClick', 'click');
-    this.radio = new Radio({ name: 'demo', value: 'test', outerRadius: 6, innerRadius: 2, highlighterBorder: 2, tabIndex: this._nextTab++ });
+    this.radio = new Radio({
+      name: 'demo', value: 'test', outerRadius: 6, innerRadius: 2, highlighterBorder: 2, tabIndex: this._nextTab++,
+    });
     this.radio.x = 20;
     this.addChild(this.radio);
     this.callBack = callBack;

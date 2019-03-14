@@ -1,4 +1,5 @@
 import AccessibilityModule from 'createjs-accessibility';
+import createjs from 'createjs';
 
 export default class Link extends createjs.Container {
   constructor(options) {
@@ -7,7 +8,7 @@ export default class Link extends createjs.Container {
       accessibleOptions: options,
       displayObject: this,
       role: AccessibilityModule.ROLES.LINK,
-    })
+    });
 
     this.accessible.download = options.download;
     this.accessible.href = options.href;

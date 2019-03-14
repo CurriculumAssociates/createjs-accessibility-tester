@@ -1,4 +1,5 @@
 import AccessibilityModule from 'createjs-accessibility';
+import createjs from 'createjs';
 import _ from 'lodash';
 
 const TRACKWIDTH = 10;
@@ -116,7 +117,7 @@ export default class ScrollBar extends createjs.Container {
     }
   }
 
-  onPressUp(e) {
+  onPressUp() {
     this.dragging = false;
     this.stage.removeEventListener('pressmove', this.onPressMove);
     this.stage.removeEventListener('pressup', this.onPressUp);
