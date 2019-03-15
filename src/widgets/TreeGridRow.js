@@ -97,7 +97,9 @@ export default class TreeGridRow extends createjs.Container {
   }
 
 
-  _createCell({ data, align = 'center', bold, fontSize }) {
+  _createCell({
+    data, align = 'center', bold, fontSize,
+  }) {
     const cell = this._createContainer(this.cellWidth, this.cellHeight);
     const text = this._createText({
       value: data, maxWidth: this.cellWidth, bold, fontSize,
@@ -116,9 +118,10 @@ export default class TreeGridRow extends createjs.Container {
         left = (this.cellWidth * 0.5 - textBounds.width * 0.5);
         break;
     }
+    const cellHeightDiff = this.cellHeight - textBounds.height;
     text.set({
       x: left,
-      y: ((this.cellHeight - textBounds.height) >= 0) ? ((this.cellHeight - textBounds.height) / 2) : 0,
+      y: cellHeightDiff >= 0 ? cellHeightDiff * 0.5 : 0,
     });
 
     cell.text = data;
@@ -143,7 +146,9 @@ export default class TreeGridRow extends createjs.Container {
     return container;
   }
 
-  _createText({ value, maxWidth, bold = false, fontSize = 18 }) {
+  _createText({
+    value, maxWidth, bold = false, fontSize = 18,
+  }) {
     const boldOption = bold ? 'bold' : '';
     const text = new createjs.Text().set({
       text: value,

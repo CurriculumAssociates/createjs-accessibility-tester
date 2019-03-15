@@ -7,7 +7,9 @@ const CONTENT_AREA_HEIGHT = 600;
 const DURATION = 30;
 
 export default class Marquee extends createjs.Container {
-  constructor({ text, behaviour = 'scroll', direction = 'left', loop = -1 } = {}) {
+  constructor({
+    text, behaviour = 'scroll', direction = 'left', loop = -1,
+  } = {}) {
     super();
     AccessibilityModule.register({
       accessibleOptions: { text },

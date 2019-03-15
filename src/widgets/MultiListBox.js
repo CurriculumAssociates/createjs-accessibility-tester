@@ -67,7 +67,8 @@ export default class MultiListBox extends createjs.Container {
     evt.selectedDisplayObjects.forEach((option) => {
       option.highlight();
     });
-    this._lastClickIndex = _.findIndex(this._options, option => option === evt.selectedDisplayObjects[evt.selectedDisplayObjects.length - 1]);
+    this._lastClickIndex = _.findIndex(this._options,
+      option => option === evt.selectedDisplayObjects[evt.selectedDisplayObjects.length - 1]);
   }
 
   _createView(width, height, optionHeight) {

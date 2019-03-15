@@ -20,7 +20,11 @@ export default class RadioGroup extends createjs.Container {
     this.tabIndex = tabIndex;
     this.options.forEach((data, i) => {
       const radio = new Radio({
-        name: data.name, value: data.value, position: data.position, size: data.size, tabIndex: this.tabIndex++,
+        name: data.name,
+        value: data.value,
+        position: data.position,
+        size: data.size,
+        tabIndex: this.tabIndex++,
       });
       radio.y = 35 * (i + 1);
       this.addChild(radio);
@@ -44,8 +48,8 @@ export default class RadioGroup extends createjs.Container {
     this.radioOption.forEach((radio) => {
       radio.addEventListener('click', this.onOptionClick);
       radio.addEventListener('keyboardClick', this.onOptionClick);
-      radio.addEventListener('focus', () => radio.focus = true);
-      radio.addEventListener('blur', () => radio.focus = false);
+      radio.addEventListener('focus', () => { radio.focus = true; });
+      radio.addEventListener('blur', () => { radio.focus = false; });
     });
   }
 

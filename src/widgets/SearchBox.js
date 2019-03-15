@@ -46,7 +46,10 @@ export default class SearchBox extends SingleLineTextInput {
     // Container position
     const containerBounds = container.getBounds();
     const bounds = this.getBounds();
-    container.set({ x: bounds.width - (containerBounds.width + 3), y: 3 + (containerBounds.height) * 0.5 });
+    container.set({
+      x: bounds.width - (containerBounds.width + 3),
+      y: 3 + (containerBounds.height) * 0.5,
+    });
     this.addChild(container);
     container.visible = false;
 

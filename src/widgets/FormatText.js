@@ -1,8 +1,6 @@
 import AccessibilityModule from 'createjs-accessibility';
 import createjs from 'createjs';
 
-const date = new Date();
-
 export default class FormatText extends createjs.Container {
   constructor(prefixText, value, role, fontType = '', fontSize, fontFamily = 'Arial') {
     super();
@@ -102,8 +100,10 @@ export default class FormatText extends createjs.Container {
         this.label.textBaseline = 'top';
         break;
 
-      case ROLES.FORMAT_TEXT_TIME:
+      case ROLES.FORMAT_TEXT_TIME: {
+        const date = new Date();
         this.label.accessible._reactProps.dateTime = date;
+      }
         break;
       default:
         break;

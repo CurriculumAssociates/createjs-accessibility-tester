@@ -13,8 +13,9 @@ export default class Radio extends createjs.Container {
    */
 
   constructor({
-    name, value, position = 1, size = 1, enabled = true, checked = false, tabIndex,
-    outerRadius = 9, innerRadius = 3, highlighterBorder = 4,
+    name, value, position = 1, size = 1, enabled = true,
+    checked = false, tabIndex, outerRadius = 9, innerRadius = 3,
+    highlighterBorder = 4,
   } = {}) {
     super();
     // will be used in radio group
@@ -149,7 +150,9 @@ export default class Radio extends createjs.Container {
    * @param {Number} border border value
    * @return {Object} return circle shape
    */
-  _createCircle({ r, fill = false, color = '#000000', border = 1 }) {
+  _createCircle({
+    r, fill = false, color = '#000000', border = 1,
+  }) {
     const shape = new createjs.Shape();
     const g = shape.graphics;
     g.setStrokeStyle(border);

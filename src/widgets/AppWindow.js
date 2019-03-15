@@ -97,7 +97,8 @@ export default class AppWindow extends createjs.Container {
     this._createMenu(width, height);
     this._contentArea = new createjs.Container();
     this._contentArea.y = HEADER_HEIGHT + MENU_HEIGHT;
-    this._contentArea.setBounds(0, 0, width, height - (MENU_HEIGHT + HEADER_HEIGHT + FOOTER_HEIGHT));
+    this._contentArea.setBounds(0, 0, width, height
+      - (MENU_HEIGHT + HEADER_HEIGHT + FOOTER_HEIGHT));
     this.addChild(this._contentArea);
 
     AccessibilityModule.register({
@@ -174,7 +175,8 @@ export default class AppWindow extends createjs.Container {
 
   resize(width, height) {
     this._menuBar.resize(width, MENU_HEIGHT);
-    this._contentArea.setBounds(0, this._headerArea.getBounds().height + MENU_HEIGHT, width, height - MENU_HEIGHT);
+    this._contentArea.setBounds(0, this._headerArea.getBounds().height
+    + MENU_HEIGHT, width, height - MENU_HEIGHT);
     // todo
   }
 
@@ -198,7 +200,7 @@ export default class AppWindow extends createjs.Container {
     this._menuBar.addMenu(testCasesMenu);
     const testCasesGroup = {
       group1: {
-        classRef: MenuItem,
+        ClassRef: MenuItem,
         testCases: [
           { name: 'Default', listener: this._showDefaultScreen },
           { name: 'Form', listener: this._showFormTestCase },
@@ -220,7 +222,7 @@ export default class AppWindow extends createjs.Container {
         ],
       },
       group2: {
-        classRef: MenuItemCheckBox,
+        ClassRef: MenuItemCheckBox,
         testCases: [
           { name: 'ShowGrid', listener: this._showMenuItemCheckBoxTestCase },
         ],
@@ -228,10 +230,10 @@ export default class AppWindow extends createjs.Container {
     };
 
     _(testCasesGroup).forEach((group) => {
-      const { classRef, testCases } = group;
-      const listenerAsCallback = classRef === MenuItemCheckBox;
+      const { ClassRef, testCases } = group;
+      const listenerAsCallback = ClassRef === MenuItemCheckBox;
       _.forEach(testCases, (testCase) => {
-        const item = new classRef(
+        const item = new ClassRef(
           testCase.name,
           this._nextTab++,
           listenerAsCallback ? testCase.listener : _.noop(),
@@ -258,18 +260,14 @@ export default class AppWindow extends createjs.Container {
 
     const menuItemRadioArray = [];
     testCasesMenuRadio.forEach((testCase) => {
-      const item = new MenuItemRadio(testCase.name, this._nextTab++, this._showMenuItemRadioTestCase);
+      const item = new MenuItemRadio(testCase.name, this._nextTab++,
+        this._showMenuItemRadioTestCase);
       item.radio.bgColor = testCase.bgColor;
       item.radio.textColor = testCase.textColor;
       testCasesMenuItemRadio.addMenuItem(item);
       menuItemRadioArray.push(item);
     });
     this.menuItemRadioArray = menuItemRadioArray;
-
-
-    // todo: add a menu for testing checkbox and radio menu items, as well as popup menus inside another menu
-    // todo: test case for draw order different than accessibility order, also include scaling as part of this test for screen magnifiers
-    // todo: for caption test case, play audio and/or video and have the captions display in sync with the audio
 
     const help = new Menu('Help', MENU_HEIGHT, this._nextTab++, 'h');
     const about = new MenuItem('About', this._nextTab++);
@@ -388,6 +386,7 @@ export default class AppWindow extends createjs.Container {
 
   _showRadioGroupAndProgressBarTestCase() {
     this._clearScreen();
+    let submit = null;
     const PizzaCrustData = [
       {
         name: 'Pizza Crust', value: 'Regular Margherita', position: 1, size: 3,
@@ -436,7 +435,6 @@ export default class AppWindow extends createjs.Container {
 
 
       const progressBar = new ProgressBar({ onProgress });
-
       label.x = this._contentArea.x + (width - progressBar.width) / 2;
       label.y = this._contentArea.y + (height - 24) / 2;
       this._contentArea.addChild(label);
@@ -525,7 +523,7 @@ export default class AppWindow extends createjs.Container {
     };
 
     // Submit form button
-    const submit = new Button(submitBtnData, this._nextTab++, appendProgressBar);
+    submit = new Button(submitBtnData, this._nextTab++, appendProgressBar);
     const { width } = labelGroup2.getBounds();
     submit.x = labelGroup2.x + (width - submit.getBounds().width) / 2;
     submit.y = 420;
@@ -628,7 +626,12 @@ export default class AppWindow extends createjs.Container {
     form.addChild(label);
 
     // Implementing MULTI LINE TEXT BOX
-    const commentArea = new MultiLineTextInput(OPTION_WIDTH, OPTION_HEIGHT * 5, 14, this._nextTab++);
+    const commentArea = new MultiLineTextInput(
+      OPTION_WIDTH,
+      OPTION_HEIGHT * 5,
+      14,
+      this._nextTab++,
+    );
     commentArea.x = 160;
     commentArea.y = 140;
     form.addChild(commentArea);
@@ -714,7 +717,6 @@ export default class AppWindow extends createjs.Container {
 
     // Implementing BUTTON
     const submitCallBack = () => {
-      // todo: this code results in a new createjs.Text for each click of the submit button.  This code needs to be fixed to either cleanup the previous createjs.Text instance or use the same instance for all clicks where the displayed string gets updated.
       label = new createjs.Text(`NAME: ${nameField._text.text}, Comments: ${commentArea._text.text}, MEMBERSHIP: ${membershipList._selectedDisplay.text}, mailingList: ${mailingList.accessible.selectedValue}`, '14px Arial');
       label.x = 10;
       label.y = 350;
@@ -933,7 +935,7 @@ export default class AppWindow extends createjs.Container {
       'Cricket',
       'Soccer',
     ];
-
+    let selected = null;
     // Callback function to get current state of each checkbox in group
     const callBack = () => {
       selectedCheckBoxes = _.map(_.filter(checkBoxArray, box => box.checked === true), 'label');
@@ -990,7 +992,7 @@ export default class AppWindow extends createjs.Container {
     });
     this._contentArea.accessible.addChild(total);
 
-    const selected = new createjs.Text('', FONT);
+    selected = new createjs.Text('', FONT);
     selected.set({ x: X + total.getBounds().width + 10, y: lasty + V_GAP });
     this._contentArea.addChild(selected);
     AccessibilityModule.register({
@@ -1250,7 +1252,9 @@ export default class AppWindow extends createjs.Container {
     complementary.x = article.x;
     complementary.y = article.y + article.getBounds().height + 10;
 
-    const loop = -1; // Sets the number of times the marquee will scroll. If no value is specified, the default value is −1, which means the marquee will scroll continuously.
+    // Sets the number of times the marquee will scroll. If no value is specified,
+    // the default value is −1,which means the marquee will scroll continuously.
+    const loop = -1;
     const direction = 'right'; // left, right, up and down
     const behaviour = 'scroll'; // scroll, slide and alternate
     const text = 'Moby Dick (1956 film) Release date June 27, 1956 in the United States';
@@ -1508,7 +1512,7 @@ export default class AppWindow extends createjs.Container {
     const tabArr = ['Information', 'Orbit', 'Rotation'];
     const ITEM_PADDING = 100;
     this.planetBtnArry = [];
-
+    let tabPanel = null;
     _.forEach(planetsData, (planet, index) => {
       const planetClick = () => {
         _.forEach(this.planetBtnArry, (planetBtn) => {
@@ -1564,7 +1568,7 @@ export default class AppWindow extends createjs.Container {
       tabList.addTab(tab);
     });
 
-    const tabPanel = new TabPanel(604, 400);
+    tabPanel = new TabPanel(604, 400);
     region.addChild(tabPanel);
     region.accessible.addChild(tabPanel);
     tabPanel.x = tabList.x + 2;
@@ -1776,7 +1780,11 @@ export default class AppWindow extends createjs.Container {
       this.alphaControlContainer.visible = false;
       this.colorSliderContainer.visible = false;
     };
-    const transformControl = new Button(transformControlBtnData, this._nextTab++, _showTransformTool);
+    const transformControl = new Button(
+      transformControlBtnData,
+      this._nextTab++,
+      _showTransformTool,
+    );
     transformControl.text.font = 'bold 14px Arial';
     toolBar.addTool(transformControl);
     const alphaControlBtnData = {
@@ -1875,10 +1883,9 @@ export default class AppWindow extends createjs.Container {
 
     for (let i = 0; i < sliderData.length; i++) {
       const name = sliderData[i].label;
-      const { min } = sliderData[i];
-      const { max } = sliderData[i];
-      const { step } = sliderData[i];
-      const { value } = sliderData[i];
+      const {
+        min, max, step, value,
+      } = sliderData[i];
       const labelValue = new createjs.Text(`${name}`, '14px Arial', `${sliderData[i].rgb}`);
       this.colorSliderContainer.addChild(labelValue);
       AccessibilityModule.register({
@@ -2228,6 +2235,12 @@ export default class AppWindow extends createjs.Container {
     let x = 50;
     let y = 75;
     const padding = 10;
+    let horizontalScale = null;
+    let verticalScale = null;
+    let horizontalSkew = null;
+    let verticalSkew = null;
+    let transformX = null;
+    let transformY = null;
     const transformShape = () => {
       shapeObject.set({
         scaleX: horizontalScale.text,
@@ -2250,7 +2263,7 @@ export default class AppWindow extends createjs.Container {
     label = this.createText('scaleX', x, y);
     x += label.getBounds().width + padding;
 
-    const horizontalScale = this.createText('1', x, y, false);
+    horizontalScale = this.createText('1', x, y, false);
     x += horizontalScale.getBounds().width + padding;
 
     const scaleXButton = this.createSpinButton({
@@ -2261,7 +2274,7 @@ export default class AppWindow extends createjs.Container {
     label = this.createText('scaleY', x, y);
     x += label.getBounds().width + padding;
 
-    const verticalScale = this.createText('1', x, y, false);
+    verticalScale = this.createText('1', x, y, false);
     x += verticalScale.getBounds().width + padding;
 
     const scaleYButton = this.createSpinButton({
@@ -2275,7 +2288,7 @@ export default class AppWindow extends createjs.Container {
     label = this.createText('skewX', x, y);
     x += label.getBounds().width + padding;
 
-    const horizontalSkew = this.createText('1', x, y, false);
+    horizontalSkew = this.createText('1', x, y, false);
     x += horizontalSkew.getBounds().width + padding;
 
     const skewXButton = this.createSpinButton({
@@ -2286,7 +2299,7 @@ export default class AppWindow extends createjs.Container {
     label = this.createText('skewY', x, y);
     x += label.getBounds().width + padding;
 
-    const verticalSkew = this.createText('1', x, y, false);
+    verticalSkew = this.createText('1', x, y, false);
     x += verticalSkew.getBounds().width + padding;
 
     const skewYButton = this.createSpinButton({
@@ -2302,7 +2315,7 @@ export default class AppWindow extends createjs.Container {
     label = this.createText('regX', x, y);
     x += label.getBounds().width + padding;
 
-    const transformX = this.createText('0', x, y, false);
+    transformX = this.createText('0', x, y, false);
     x += transformX.getBounds().width + padding + 15;
 
     const transformXButton = this.createSpinButton({
@@ -2313,7 +2326,7 @@ export default class AppWindow extends createjs.Container {
     label = this.createText('regY', x, y);
     x += label.getBounds().width + padding;
 
-    const transformY = this.createText('0', x, y, false);
+    transformY = this.createText('0', x, y, false);
     x += transformY.getBounds().width + padding;
   }
 
@@ -2534,6 +2547,8 @@ export default class AppWindow extends createjs.Container {
     this.textFormat.addChild(boldText);
     this.textFormat.accessible.addChild(boldText);
     this.textFormat.accessible.lang = 'en';
+    // dir = ltr: Default. Left-to-right text direction
+    // dir = rtl: Right-to-left text direction
     boldText.accessible.dir = 'rtl';
     boldText.x = this.getBounds().width - boldText.getBounds().width;
     boldText.y = PADDING;

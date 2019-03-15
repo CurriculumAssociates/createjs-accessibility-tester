@@ -63,12 +63,14 @@ export default class SpinButton extends createjs.Container {
   }
 
   onIncrement() {
-    this.currentValue = ((this.currentValue + 1) > this.maxValue) ? this.maxValue : this.currentValue + 1;
+    this.currentValue = ((this.currentValue + 1) > this.maxValue)
+      ? this.maxValue : this.currentValue + 1;
     this.updateTargetValue();
   }
 
   onDecrement() {
-    this.currentValue = ((this.currentValue - 1) < this.minValue) ? this.minValue : this.currentValue - 1;
+    this.currentValue = ((this.currentValue - 1) < this.minValue)
+      ? this.minValue : this.currentValue - 1;
     this.updateTargetValue();
   }
 

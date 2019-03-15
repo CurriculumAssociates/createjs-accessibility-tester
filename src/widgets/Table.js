@@ -52,7 +52,8 @@ export default class Table extends createjs.Container {
       _.forEach(this.data[i], (data, index) => {
         const cell = this._createCell({ value: data, index, align: 'left' });
         row.addChild(cell);
-        const ROLE = isHeader ? AccessibilityModule.ROLES.COLUMNHEADER : AccessibilityModule.ROLES.CELL;
+        const { COLUMNHEADER, CELL } = AccessibilityModule.ROLES;
+        const ROLE = isHeader ? COLUMNHEADER : CELL;
         AccessibilityModule.register({
           displayObject: cell,
           parent: row,
@@ -108,9 +109,10 @@ export default class Table extends createjs.Container {
         left = (this.cellWidths[index] - textBounds.width) / 2;
         break;
     }
+    const cellHeightDiff = this.cellHeight - textBounds.height;
     text.set({
       x: left,
-      y: ((this.cellHeight - textBounds.height) >= 0) ? ((this.cellHeight - textBounds.height) / 2) : 0,
+      y: (cellHeightDiff >= 0) ? cellHeightDiff * 0.5 : 0,
     });
 
     cell.text = value;

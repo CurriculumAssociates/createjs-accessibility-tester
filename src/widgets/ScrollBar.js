@@ -62,7 +62,8 @@ export default class ScrollBar extends createjs.Container {
 
     const thumb = new createjs.Shape();
     this.thumb = thumb;
-    thumb.graphics.beginFill(THUMBCOLOR).drawRoundRect(0, 0, TRACKWIDTH, thumbHeight, (TRACKWIDTH / 2));
+    thumb.graphics.beginFill(THUMBCOLOR).drawRoundRect(0, 0, TRACKWIDTH,
+      thumbHeight, (TRACKWIDTH / 2));
     thumb.setBounds(0, 0, TRACKWIDTH, thumbHeight);
 
     AccessibilityModule.register({
