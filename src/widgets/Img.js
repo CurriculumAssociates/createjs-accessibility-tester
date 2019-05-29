@@ -16,8 +16,11 @@ export default class Img extends createjs.Container {
     });
     this._options = options;
     this._image = new createjs.Bitmap(this._options.src);
-    this._image.scaleX = this._options.cjsScaleX;
-    this._image.scaleY = this._options.cjsScaleY;
+    this.scaleX = this._options.cjsScaleX;
+    this.scaleY = this._options.cjsScaleY;
+    this.regX = width / 4;
+    this.regY = height / 4;
+    this.rotation = 45;
     this.addChild(this._image);
   }
 }
