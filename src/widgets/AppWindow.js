@@ -62,7 +62,7 @@ export default class AppWindow extends createjs.Container {
       '_showListTestCase', '_showArticleTestCase', '_showCheckBoxTestCase', '_showSearchTestCase',
       '_showSliderTestCase', '_showMenuItemCheckBoxTestCase', '_showMenuItemRadioTestCase',
       '_showRadioGroupAndProgressBarTestCase', '_showGridTestCase', '_showTreeTestCase',
-      '_showFeedTestCase', '_showTreeGridTestCase', '_showTextFormatCase'
+      '_showFeedTestCase', '_showTreeGridTestCase', '_showTextFormatCase' ,'_mathTextCase'
     );
     AccessibilityModule.register({
       displayObject: this,
@@ -230,6 +230,7 @@ export default class AppWindow extends createjs.Container {
           { name: 'Feed', listener: this._showFeedTestCase },
           { name: 'TreeGrid', listener: this._showTreeGridTestCase },
           { name: 'Text Format', listener: this._showTextFormatCase },
+          { name: 'Math', listener: this._mathTextCase },
         ],
       },
       group2: {
@@ -2606,6 +2607,32 @@ export default class AppWindow extends createjs.Container {
     this._contentArea.accessible.addChild(tree);
   }
 
+  _mathTextCase() {
+    this._clearScreen();
+
+    const text = new createjs.Text('quadratic equation', 'bold 34px Arial');
+    AccessibilityModule.register({
+      displayObject: text,
+      role: AccessibilityModule.ROLES.NONE,
+    });
+    text.x = 200;
+    text.y = 150;
+    this._contentArea.addChild(text);
+    text.accessible.text = text.text;
+    this._contentArea.accessible.addChild(text);
+
+    const mathText = new createjs.Text('x=⟮−b±√⟮b²−4ac⟯⟯÷2a', 'bold 32px Arial');
+    AccessibilityModule.register({
+      displayObject: mathText,
+      role: AccessibilityModule.ROLES.MATH,
+    });
+    mathText.x = 200;
+    mathText.y = 200;
+    this._contentArea.addChild(mathText);
+    mathText.accessible.text = mathText.text;
+    this._contentArea.accessible.addChild(mathText);
+  }
+  
   _showTextFormatCase() {
     this._clearScreen();
 
