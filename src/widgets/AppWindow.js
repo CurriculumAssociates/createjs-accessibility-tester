@@ -47,6 +47,7 @@ import AlertDialog from './AlertDialog.js';
 import Marquee from './Marquee.js';
 
 import imgTestSrc from './media/Curriculum-Associates-Logo-964x670.png';
+import formulaImg from './media/formula1.png'
 
 const MENU_HEIGHT = 20;
 const OPTION_WIDTH = 100;
@@ -2610,29 +2611,31 @@ export default class AppWindow extends createjs.Container {
   _mathTextCase() {
     this._clearScreen();
 
-    const text = new createjs.Text('quadratic equation', 'bold 34px Arial');
+    const imgHolder = new createjs.Container();
     AccessibilityModule.register({
-      displayObject: text,
-      role: AccessibilityModule.ROLES.NONE,
-    });
-    text.x = 200;
-    text.y = 150;
-    this._contentArea.addChild(text);
-    text.accessible.text = text.text;
-    this._contentArea.accessible.addChild(text);
-
-    const mathText = new createjs.Text('x=⟮−b±√⟮b²−4ac⟯⟯÷2a', 'bold 32px Arial');
-    AccessibilityModule.register({
-      displayObject: mathText,
+      displayObject: imgHolder,
+      parent: this._contentArea,
       role: AccessibilityModule.ROLES.MATH,
     });
-    mathText.x = 200;
-    mathText.y = 200;
-    this._contentArea.addChild(mathText);
-    mathText.accessible.text = mathText.text;
-    this._contentArea.accessible.addChild(mathText);
+
+    this._contentArea.addChild(imgHolder);
+
+    const option = {
+      src: formulaImg,
+      alt: '(a+b)^{2}=a^{2}+2ab+b^{2}',
+      width: 500,
+      height: 50,
+      cjsScaleX: 1,
+      cjsScaleY: 1,
+    };
+
+    const img = new Img(option, option.width, option.height);
+    img.x= 100;
+    img.y= 100;
+    imgHolder.addChild(img);
+    imgHolder.accessible.addChild(img);
   }
-  
+
   _showTextFormatCase() {
     this._clearScreen();
 
