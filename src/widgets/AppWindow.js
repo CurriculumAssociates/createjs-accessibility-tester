@@ -45,6 +45,7 @@ import TreeGrid from './TreeGrid.js';
 import FormatText from './FormatText.js';
 import AlertDialog from './AlertDialog.js';
 import Marquee from './Marquee.js';
+import PlainTextMath from './PlainTextMath.js'
 
 import imgTestSrc from './media/Curriculum-Associates-Logo-964x670.png';
 import formulaImg from './media/formula1.png'
@@ -2610,30 +2611,18 @@ export default class AppWindow extends createjs.Container {
 
   _mathTextCase() {
     this._clearScreen();
-
-    const imgHolder = new createjs.Container();
-    AccessibilityModule.register({
-      displayObject: imgHolder,
-      parent: this._contentArea,
-      role: AccessibilityModule.ROLES.MATH,
-    });
-
-    this._contentArea.addChild(imgHolder);
-
-    const option = {
+    
+    const options = {
       src: formulaImg,
-      alt: '(a+b)^{2}=a^{2}+2ab+b^{2}',
-      width: 500,
-      height: 50,
+      label: '(a+b)^{2}=a^{2}+2ab+b^{2}',
       cjsScaleX: 1,
       cjsScaleY: 1,
     };
-
-    const img = new Img(option, option.width, option.height);
-    img.x= 100;
-    img.y= 100;
-    imgHolder.addChild(img);
-    imgHolder.accessible.addChild(img);
+    const mathText = new PlainTextMath(options);
+    mathText.x = 200;
+    mathText.y = 200;
+    this._contentArea.addChild(mathText);
+    this._contentArea.accessible.addChild(mathText);
   }
 
   _showTextFormatCase() {
