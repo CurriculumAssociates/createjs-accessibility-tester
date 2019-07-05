@@ -2623,6 +2623,19 @@ export default class AppWindow extends createjs.Container {
     mathText.y = 200;
     this._contentArea.addChild(mathText);
     this._contentArea.accessible.addChild(mathText);
+
+    const mathml= '<math xmlns ="http://www.w3.org/1998/Math/MathML"><mrow><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup><mo> = </mo><msup><mi>c</mi><mn>2</mn></msup> </mrow></math>';
+    const text = new createjs.Text('a2+b2=c2','bold 20px Arial', '#000');
+    text.x= 200;
+    text.y = 300;
+    this._contentArea.addChild(text);
+    AccessibilityModule.register({
+      displayObject: text,
+      role: AccessibilityModule.ROLES.MATH,
+    });
+    this._contentArea.accessible.addChild(text);
+    text.accessible.mathML = mathml;
+
   }
 
   _showTextFormatCase() {
