@@ -49,6 +49,7 @@ import PlainTextMath from './PlainTextMath.js'
 
 import imgTestSrc from './media/Curriculum-Associates-Logo-964x670.png';
 import formulaImg from './media/formula1.png'
+import formula_img from './media/formula2.png'
 
 const MENU_HEIGHT = 20;
 const OPTION_WIDTH = 100;
@@ -2624,10 +2625,16 @@ export default class AppWindow extends createjs.Container {
     this._contentArea.addChild(mathText);
     this._contentArea.accessible.addChild(mathText);
 
+    const option1 = {
+      src: formula_img,
+      label: 'a^{2}+b^{2}=c^{2}',
+      cjsScaleX: 1,
+      cjsScaleY: 1,
+    };
     const mathml= '<math xmlns ="http://www.w3.org/1998/Math/MathML"><mrow><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup><mo> = </mo><msup><mi>c</mi><mn>2</mn></msup> </mrow></math>';
-    const text = new createjs.Text('a2+b2=c2','bold 20px Arial', '#000');
+    const text = new PlainTextMath(option1);
     text.x= 200;
-    text.y = 300;
+    text.y = 250;
     this._contentArea.addChild(text);
     AccessibilityModule.register({
       displayObject: text,
