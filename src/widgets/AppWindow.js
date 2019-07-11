@@ -109,7 +109,7 @@ export default class AppWindow extends createjs.Container {
       parent: this,
       role: AccessibilityModule.ROLES.MAIN,
     });
-
+    this.accessible.addChild(this._contentArea);
     this._footerArea = new createjs.Container();
     this.addChild(this._footerArea);
     AccessibilityModule.register({
