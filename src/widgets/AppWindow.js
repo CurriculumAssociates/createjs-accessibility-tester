@@ -136,7 +136,6 @@ export default class AppWindow extends createjs.Container {
       },
     });
     this._footerArea.accessible.addChild(contentinfo);
-    this._footerArea.accessible.lang = 'en';
 
     contentinfo.lineWidth = width;
     const footerBounds = this._footerArea.getBounds();
@@ -591,8 +590,6 @@ export default class AppWindow extends createjs.Container {
       },
     });
     form.addChild(label);
-
-
 
     const nameField = new SingleLineTextInput(OPTION_WIDTH, OPTION_HEIGHT, this._nextTab++);
     nameField.x = 160;
