@@ -32,7 +32,8 @@ export default class ListBox extends createjs.Container {
   _onCollapedViewClick() {
     this._dropDownView.visible = !this._dropDownView.visible;
     if (this._dropDownView.visible) {
-      // make sure the listbox is on top of its sibling DisplayObjects to try to ensure that the dropdown is completely visible
+      // make sure the listbox is on top of its sibling DisplayObjects to try
+      // to ensure that the dropdown is completely visible
       this.parent.addChild(this);
     }
   }
