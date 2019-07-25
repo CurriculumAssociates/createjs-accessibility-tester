@@ -66,6 +66,7 @@ const config = {
     createjs: 'createjs',
     jquery: 'jQuery',
   },
+  performance: { hints: false },
   resolve: {
     modules: [
       path.resolve(__dirname, 'node_modules'),
