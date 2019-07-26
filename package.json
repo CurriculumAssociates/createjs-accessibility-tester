@@ -4,8 +4,7 @@
   "description": "Test and sample webapp for the Createjs Accessibility Module",
   "main": "src/index.js",
   "scripts": {
-    "build": "rm -rf dist && npm run lint && NODE_ENV=production webpack",
-    "lint": "eslint --color src",
+    "build": "rm -rf dist && NODE_ENV=production webpack",
     "start": "webpack-dev-server --no-inline --port 8007 --host 0.0.0.0",
     "start_reload": "webpack-dev-server --port 8007 --host 0.0.0.0",
     "clobber": "rm -rf node_modules/ && npm cache clean --force"
@@ -49,11 +48,11 @@
     "webpack-dev-server": "3.2.1"
   },
   "dependencies": {
-    "@curriculumassociates/createjs-accessibility": "^0.3.1",
+    "@curriculumassociates/createjs-accessibility": "^1.0.0-prerelease.1",
     "babel-polyfill": "^6.26.0",
-    "jquery": "^3.4.1",
+    "jquery": "3.2.1",
     "keycodes-enum": "0.0.2",
-    "lodash": "^4.17.15",
+    "lodash": "4.17.11",
     "react": "^16.5.2",
     "react-dom": "^16.5.2"
   }

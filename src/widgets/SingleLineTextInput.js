@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import _ from 'lodash';
 import KeyCodes from 'keycodes-enum';
-// import TimelineMax from 'TimelineMax';
 import AccessibilityModule from '@curriculumassociates/createjs-accessibility';
 
 const PAD = 2;

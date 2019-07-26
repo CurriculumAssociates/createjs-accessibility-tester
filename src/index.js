@@ -1,4 +1,3 @@
-// import createjs from 'createjs';
 import $ from 'jquery';
 import AccessibilityModule from '@curriculumassociates/createjs-accessibility';
 import AppWindow from './widgets/AppWindow';

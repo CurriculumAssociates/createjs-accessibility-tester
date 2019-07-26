@@ -1978,10 +1978,9 @@ export default class AppWindow extends createjs.Container {
 
     for (let i = 0; i < sliderData.length; i++) {
       const name = sliderData[i].label;
-      const { min } = sliderData[i];
-      const { max } = sliderData[i];
-      const { step } = sliderData[i];
-      const { value } = sliderData[i];
+      const {
+        min, max, step, value,
+      } = sliderData[i];
       const labelValue = new createjs.Text(`${name}`, '14px Arial', `${sliderData[i].rgb}`);
       this.colorSliderContainer.addChild(labelValue);
       AccessibilityModule.register({
