@@ -93,7 +93,7 @@ export default class AppWindow extends createjs.Container {
     this._headerArea.accessible.addChild(headerText);
     this._headerArea.accessible.title = 'Createjs Accessibility Test APP';
     this._headerArea.accessible.spellcheck = true;
-    this._headerArea.accessible.lang = 'eg';
+    this._headerArea.accessible.lang = 'en';
     this._headerArea.accessible.translate = 'yes';
     this._headerArea.setBounds(0, 0, 800, HEADER_HEIGHT);
     headerText.lineWidth = 800;
@@ -672,6 +672,8 @@ export default class AppWindow extends createjs.Container {
     commentArea.y = 140;
     form.addChild(commentArea);
     form.accessible.addChild(commentArea);
+    commentArea.accessible.spellcheck = true;
+    console.log(commentArea);
     // Text box's tooltip
     const commentAreaToolTip = new Tooltip({ target: commentArea, content: 'Comment regarding membership' });
     form.addChild(commentAreaToolTip);
@@ -726,25 +728,6 @@ export default class AppWindow extends createjs.Container {
     const mailingListToolTip = new Tooltip({ target: mailingList, content: 'Choose between mailing types' });
     form.addChild(mailingListToolTip);
     form.accessible.addChild(mailingListToolTip);
-
-    label = new createjs.Text('Feedback', '14px Arial');
-    label.x = 10;
-    label.y = 350;
-    AccessibilityModule.register({
-      displayObject: label,
-      parent: form,
-      role: AccessibilityModule.ROLES.NONE,
-      accessibleOptions: {
-        text: label.text,
-      },
-    });
-    form.addChild(label);
-
-    const contentEditable = new ContentEditable(OPTION_WIDTH, OPTION_HEIGHT, this._nextTab++);
-    contentEditable.x = 160;
-    contentEditable.y = 350;
-    form.addChild(contentEditable);
-    form.accessible.addChild(contentEditable);
 
     // Alert when form gets submitted
     const alert = new createjs.Container();
