@@ -91,9 +91,7 @@ export default class AppWindow extends createjs.Container {
     });
     this._headerArea.accessible.addChild(headerText);
     this._headerArea.accessible.title = 'Createjs Accessibility Test APP';
-    this._headerArea.accessible.spellcheck = true;
     this._headerArea.accessible.lang = 'en';
-    this._headerArea.accessible.translate = 'yes';
     this._headerArea.setBounds(0, 0, 800, HEADER_HEIGHT);
     headerText.lineWidth = 800;
     const bannerBounds = this._headerArea.getBounds();
