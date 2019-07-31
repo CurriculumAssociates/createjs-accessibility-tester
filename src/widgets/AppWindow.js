@@ -670,7 +670,7 @@ export default class AppWindow extends createjs.Container {
     form.addChild(commentArea);
     form.accessible.addChild(commentArea);
     commentArea.accessible.spellcheck = true;
-    console.log(commentArea);
+
     // Text box's tooltip
     const commentAreaToolTip = new Tooltip({ target: commentArea, content: 'Comment regarding membership' });
     form.addChild(commentAreaToolTip);
