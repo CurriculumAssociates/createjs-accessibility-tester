@@ -116,7 +116,6 @@ export default class AppWindow extends createjs.Container {
       parent: this,
       role: AccessibilityModule.ROLES.MAIN,
     });
-
     this._footerArea = new createjs.Container();
     this.addChild(this._footerArea);
     AccessibilityModule.register({
@@ -637,7 +636,7 @@ export default class AppWindow extends createjs.Container {
     let optionLabels = ['Free', 'Member', 'Premium'];
     let options = [];
     optionLabels.forEach((optionLabel) => {
-      options.push(new Option(optionLabel, OPTION_WIDTH, OPTION_HEIGHT));
+      options.push(new Option(optionLabel, OPTION_WIDTH, OPTION_HEIGHT, true));
     });
 
     // List box
@@ -713,7 +712,7 @@ export default class AppWindow extends createjs.Container {
     optionLabels = ['OpenGL', 'Direct3D12', 'Vulkan', 'Mantle', 'Metal', 'WebGL'];
     options = [];
     optionLabels.forEach((optionLabel) => {
-      options.push(new Option(optionLabel, OPTION_WIDTH, OPTION_HEIGHT));
+      options.push(new Option(optionLabel, OPTION_WIDTH, OPTION_HEIGHT, false));
     });
     // Multi select list box
     const mailingList = new MultiListBox(options, OPTION_WIDTH, OPTION_HEIGHT, this._nextTab++);
