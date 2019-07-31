@@ -2550,9 +2550,11 @@ export default class AppWindow extends createjs.Container {
         childArr: [
           {
             label: 'Mountain Bike',
-          }, {
+          },
+          {
             label: 'Road Bike',
-          }, {
+          },
+          {
             label: 'BMX/Trick Bike',
           },
         ],
@@ -2562,11 +2564,14 @@ export default class AppWindow extends createjs.Container {
         childArr: [
           {
             label: 'Cruiser',
-          }, {
+          },
+          {
             label: 'Dirt Bike',
-          }, {
+          },
+          {
             label: 'Sport Bike',
-          }, {
+          },
+          {
             label: 'Touring Bike',
           },
         ],
@@ -2580,41 +2585,53 @@ export default class AppWindow extends createjs.Container {
       childArr: [
         {
           label: 'Hatchback',
-        }, {
+        },
+        {
           label: 'Sedan',
         }, {
           label: 'MPV',
-        }, {
+        },
+        {
           label: 'SUV',
           childArr: [{
             label: 'Compact',
-          }, {
+          },
+          {
             label: 'Mid-size',
-          }, {
+          },
+          {
             label: 'Full-size',
-          }, {
+          },
+          {
             label: 'Crossovers',
             childArr: [
               {
                 label: 'Subcompact',
-              }, {
+              },
+              {
                 label: 'Compact',
-              }, {
+              },
+              {
                 label: 'Mid-size',
-              }, {
+              },
+              {
                 label: 'Full-size',
-              }],
+              },
+            ],
           }],
-        }],
+        },
+      ],
     }];
 
     const vehicleArr = [{
       label: '2 Wheeler',
       childArr: twoWheelers,
-    }, {
+    },
+    {
       label: '3 Wheeler',
       childArr: threeWheelers,
-    }, {
+    },
+    {
       label: '4 Wheeler',
       childArr: fourWheelers,
     }];

@@ -21,7 +21,7 @@ export default class FormatText extends createjs.Container {
       },
     });
 
-    const label = new createjs.Text(value, `${fontType} ${fontSize} ${fontFamily}`);
+    const label = new createjs.Text(value, `${fontType} ${fontSize}px ${fontFamily}`);
     this.addChild(label);
     AccessibilityModule.register({
       displayObject: label,
