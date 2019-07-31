@@ -46,7 +46,6 @@ import FormatText from './FormatText.js';
 import AlertDialog from './AlertDialog.js';
 import Marquee from './Marquee.js';
 import PlainTextMath from './PlainTextMath.js'
-import ContentEditable from './ContentEditable.js'
 
 import imgTestSrc from './media/Curriculum-Associates-Logo-964x670.png';
 import formulaImg from './media/formula1.png'
