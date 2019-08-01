@@ -4,11 +4,21 @@ import AccessibilityModule from '@curriculumassociates/createjs-accessibility';
 export default class ProgressBar extends createjs.Container {
   constructor({ valueMax = 100, value = 0, width = 400, height = 8, onProgress = _.noop } = {}) {
     super();
+    _.bindAll(this, 'startProgress', 'onFocus', 'onBlur');
     AccessibilityModule.register({
       displayObject: this,
       role: AccessibilityModule.ROLES.PROGRESSBAR,
+      events: [
+        {
+          eventName: 'focus',
+          listener: this.onFocus,
+        },
+        {
+          eventName: 'blur',
+          listener: this.onBlur,
+        }
+      ],
     });
-    _.bindAll(this, 'startProgress', 'onFocus', 'onBlur');
     this.valueMax = valueMax;
     this.valueNow = value;
     this._width = width;
@@ -19,8 +29,6 @@ export default class ProgressBar extends createjs.Container {
     this.setBounds(0, 0, width, height);
     this.onProgress = onProgress;
     this.setupProgressBar();
-    this.addEventListener('focus', this.onFocus);
-    this.addEventListener('blur', this.onBlur);
   }
 
   onFocus() {
