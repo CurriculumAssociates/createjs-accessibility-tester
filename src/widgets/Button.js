@@ -17,6 +17,28 @@ export default class Button extends createjs.Container {
       displayObject: this,
       accessibleOptions: options,
       role: AccessibilityModule.ROLES.BUTTON,
+      events: [
+        {
+          eventName: 'focus',
+          listener: this._onFocus,
+        },
+        {
+          eventName: 'blur',
+          listener: this._onBlur,
+        },
+        {
+          eventName: 'mousedown',
+          listener: this._onMouseDown,
+        },
+        {
+          eventName: 'mouseup',
+          listener: this._onMouseUp,
+        },
+        {
+          eventName: 'keyboardClick',
+          listener: this._onMouseDown,
+        },
+      ]
     });
 
     this._options = options;
@@ -64,7 +86,7 @@ export default class Button extends createjs.Container {
   }
 
   get enabled() {
-    this._enabled;
+    return this._enabled;
   }
 
   _onFocus() {

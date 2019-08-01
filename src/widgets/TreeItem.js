@@ -13,6 +13,20 @@ export default class TreeItem extends createjs.Container {
       },
       displayObject: this,
       role: AccessibilityModule.ROLES.TREEITEM,
+      events: [
+        {
+          eventName: 'focus',
+          listener: this.onFocus,
+        },
+        {
+          eventName: 'blur',
+          listener: this.onBlur,
+        },
+        {
+          eventName: 'keyboardClick',
+          listener: this.toggleTreeVisibility,
+        },
+      ],
     });
 
     this.treeItems = [];
@@ -64,10 +78,6 @@ export default class TreeItem extends createjs.Container {
     this.addChild(this.expandedArrow);
     this.expandedArrow.y = 4;
     this.expandedArrow.visible = false;
-
-    this.addEventListener('blur', this.onBlur);
-    this.addEventListener('focus', this.onFocus);
-    this.addEventListener('keyboardClick', this.toggleTreeVisibility);
     this.collapsedArrow.addEventListener('click', this.toggleTreeVisibility);
     this.expandedArrow.addEventListener('click', this.toggleTreeVisibility);
   }
@@ -77,7 +87,7 @@ export default class TreeItem extends createjs.Container {
     this.label.x = 30;
     this.treeItems.push(item);
     _.forEach(this.treeItems, (treeItem, i) => {
-      const height = treeItem.getBounds().height;
+      const { height } = treeItem.getBounds();
       treeItem.x = 20;
       treeItem.y = height + (i * height);
     });
@@ -120,7 +130,7 @@ export default class TreeItem extends createjs.Container {
     evt.stopPropagation();
   }
 
-  onBlur(evt) {
+  onBlur() {
     this.focusRect.visible = false;
     this.label.color = 'black';
   }

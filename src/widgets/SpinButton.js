@@ -1,8 +1,10 @@
 import AccessibilityModule from '@curriculumassociates/createjs-accessibility';
-import Button from './Button.js';
+import Button from './Button';
 
 export default class SpinButton extends createjs.Container {
-  constructor({ options, textContainer, callback, tabIndex }) {
+  constructor({
+    options, textContainer, callback, tabIndex,
+  }) {
     super();
     const { maxValue, minValue } = options;
     this.tabIndex = tabIndex;
@@ -27,13 +29,25 @@ export default class SpinButton extends createjs.Container {
       },
       displayObject: this,
       role: AccessibilityModule.ROLES.SPINBUTTON,
+      events: [
+        {
+          eventName: 'increment',
+          listener: this.onIncrement,
+        },
+        {
+          eventName: 'decrement',
+          listener: this.onDecrement,
+        },
+        {
+          eventName: 'change',
+          listener: this.onChange,
+        }
+      ],
     });
 
     this.setBounds(0, 0, this.width, this.height);
     this.createButtons();
-    this.addEventListener('increment', this.onIncrement.bind(this));
-    this.addEventListener('decrement', this.onDecrement.bind(this));
-    this.addEventListener('change', this.onChange.bind(this));
+
   }
 
   createButtons() {
@@ -60,12 +74,14 @@ export default class SpinButton extends createjs.Container {
   }
 
   onIncrement() {
-    this.currentValue = ((this.currentValue + 1) > this.maxValue) ? this.maxValue : this.currentValue + 1;
+    this.currentValue = ((this.currentValue + 1) > this.maxValue)
+      ? this.maxValue : this.currentValue + 1;
     this.updateTargetValue();
   }
 
   onDecrement() {
-    this.currentValue = ((this.currentValue - 1) < this.minValue) ? this.minValue : this.currentValue - 1;
+    this.currentValue = ((this.currentValue - 1) < this.minValue)
+      ? this.minValue : this.currentValue - 1;
     this.updateTargetValue();
   }
 
