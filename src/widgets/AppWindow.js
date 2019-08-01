@@ -87,8 +87,9 @@ export default class AppWindow extends createjs.Container {
       },
     });
     this._headerArea.accessible.addChild(headerText);
+    this._headerArea.accessible.title = 'Createjs Accessibility Test APP';
+    this._headerArea.accessible.lang = 'en';
     this._headerArea.setBounds(0, 0, 800, HEADER_HEIGHT);
-
     headerText.lineWidth = 800;
     const bannerBounds = this._headerArea.getBounds();
     headerText.x = bannerBounds.width * 0.5 - headerText.getBounds().width * 0.5;
@@ -169,6 +170,7 @@ export default class AppWindow extends createjs.Container {
       },
     });
     currentTime.accessible.addChild(timer);
+    currentTime.accessible.dir = 'ltr';
     currentTime.x = 10;
     currentTime.y = 5;
     const updateTime = () => {
@@ -600,6 +602,7 @@ export default class AppWindow extends createjs.Container {
       },
     });
     form.addChild(label);
+
     const nameField = new SingleLineTextInput(OPTION_WIDTH, OPTION_HEIGHT, this._nextTab++);
     nameField.x = 160;
     nameField.y = 100;
@@ -683,6 +686,7 @@ export default class AppWindow extends createjs.Container {
     commentArea.y = 140;
     form.addChild(commentArea);
     form.accessible.addChild(commentArea);
+    commentArea.accessible.spellcheck = true;
 
     // Text box's tooltip
     const commentAreaToolTip = new Tooltip({ target: commentArea, content: 'Comment regarding membership' });
