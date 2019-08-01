@@ -2,7 +2,13 @@ import _ from 'lodash';
 import AccessibilityModule from '@curriculumassociates/createjs-accessibility';
 
 export default class ProgressBar extends createjs.Container {
-  constructor({ valueMax = 100, value = 0, width = 400, height = 8, onProgress = _.noop } = {}) {
+  constructor({
+    valueMax = 100,
+    value = 0,
+    width = 400,
+    height = 8,
+    onProgress = _.noop,
+  } = {}) {
     super();
     _.bindAll(this, 'startProgress', 'onFocus', 'onBlur');
     AccessibilityModule.register({
@@ -41,7 +47,9 @@ export default class ProgressBar extends createjs.Container {
 
 
   setupProgressBar() {
-    const { width, height, strokeWidth, focusIndicatorStrokeWidth, radius } = this;
+    const {
+      width, height, strokeWidth, focusIndicatorStrokeWidth, radius,
+    } = this;
 
     const padding = 8;
     const _width = width + (padding + focusIndicatorStrokeWidth);
