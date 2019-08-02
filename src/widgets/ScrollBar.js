@@ -26,6 +26,16 @@ export default class ScrollBar extends createjs.Container {
       },
       displayObject: this,
       role: AccessibilityModule.ROLES.SCROLLBAR,
+      events: [
+        {
+          eventName: 'focus',
+          listener: this.setFocus,
+        },
+        {
+          eventName: 'scroll',
+          listener: this.onScroll,
+        },
+      ],
     });
 
     this.contentContainer = this.container.getChildAt(0);
@@ -61,7 +71,8 @@ export default class ScrollBar extends createjs.Container {
 
     const thumb = new createjs.Shape();
     this.thumb = thumb;
-    thumb.graphics.beginFill(THUMBCOLOR).drawRoundRect(0, 0, TRACKWIDTH, thumbHeight, (TRACKWIDTH / 2));
+    thumb.graphics.beginFill(THUMBCOLOR).drawRoundRect(0, 0, TRACKWIDTH,
+      thumbHeight, (TRACKWIDTH / 2));
     thumb.setBounds(0, 0, TRACKWIDTH, thumbHeight);
 
     AccessibilityModule.register({
@@ -116,7 +127,7 @@ export default class ScrollBar extends createjs.Container {
     }
   }
 
-  onPressUp(e) {
+  onPressUp() {
     this.dragging = false;
     this.stage.removeEventListener('pressmove', this.onPressMove);
     this.stage.removeEventListener('pressup', this.onPressUp);
