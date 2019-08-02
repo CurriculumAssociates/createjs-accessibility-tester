@@ -2,6 +2,7 @@ import _ from 'lodash';
 import AccessibilityModule from '@curriculumassociates/createjs-accessibility';
 import Article from './Article';
 import Button from './Button';
+import ComboBox from './ComboBox';
 import Img from './Img';
 import ListBox from './ListBox';
 import Link from './Link';
@@ -757,10 +758,10 @@ export default class AppWindow extends createjs.Container {
     });
     form.addChild(label);
     optionLabels = ['Graphics Programming', 'Game Programming', 'AI', 'Pathfinding', 'Game Design'];
-    options = _.map(optionLabels, (optionLabel) => {
-      return new Option(optionLabel, OPTION_WIDTH, OPTION_HEIGHT, true);
-    });
+    options = _.map(optionLabels, optionLabel => new Option(optionLabel, OPTION_WIDTH, OPTION_HEIGHT, true)); // eslint-disable-line max-len
     const combobox = new ComboBox(options, OPTION_WIDTH, OPTION_HEIGHT, this._nextTab++);
+    form.addChild(combobox);
+    form.accessible.addChild(combobox);
 
     // Alert when form gets submitted
     const alert = new createjs.Container();
