@@ -722,6 +722,25 @@ export default class AppWindow extends createjs.Container {
     form.addChild(mailingListToolTip);
     form.accessible.addChild(mailingListToolTip);
 
+    // combobox example
+    label = new createjs.Text('Primary interest', '14px Arial');
+    label.x = 10;
+    label.y = 352;
+    AccessibilityModule.register({
+      displayObject: label,
+      parent: form,
+      role: AccessibilityModule.ROLES.NONE,
+      accessibleOptions: {
+        text: label.text,
+      },
+    });
+    form.addChild(label);
+    optionLabels = ['Graphics Programming', 'Game Programming', 'AI', 'Pathfinding', 'Game Design'];
+    options = _.map(optionLabels, (optionLabel) => {
+      return new Option(optionLabel, OPTION_WIDTH, OPTION_HEIGHT, true);
+    });
+    const combobox = new ComboBox(options, OPTION_WIDTH, OPTION_HEIGHT, this._nextTab++);
+
     // Alert when form gets submitted
     const alert = new createjs.Container();
     AccessibilityModule.register({
@@ -2611,7 +2630,7 @@ export default class AppWindow extends createjs.Container {
 
   _mathTextCase() {
     this._clearScreen();
-    
+
     const options = {
       src: formulaImg,
       label: '(a+b)^{2}=a^{2}+2ab+b^{2}',
