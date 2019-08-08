@@ -754,13 +754,10 @@ export default class AppWindow extends createjs.Container {
     alert.addChild(alertLabel);
     alert.visible = false;
 
+    label = new createjs.Text('', '14px Arial');
     // Implementing BUTTON
     const submitCallBack = () => {
-      // todo: this code results in a new createjs.Text for each click of
-      // the submit button.  This code needs to be fixed to either cleanup
-      // the previous createjs.Text instance or use the same instance for
-      // all clicks where the displayed string gets updated.
-      label = new createjs.Text(`NAME: ${nameField._text.text}, Comments: ${commentArea._text.text}, MEMBERSHIP: ${membershipList._selectedDisplay.text}, mailingList: ${mailingList.accessible.selectedValue}`, '14px Arial');
+      label.text = `NAME: ${nameField._text.text}, Comments: ${commentArea._text.text}, MEMBERSHIP: ${membershipList._selectedDisplay.text}, mailingList: ${mailingList.accessible.selectedValue}`;
       label.x = 10;
       label.y = 350;
 
