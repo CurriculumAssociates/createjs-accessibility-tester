@@ -85,7 +85,6 @@ export default class SingleLineTextInput extends createjs.Container {
     this.accessible.placeholder = placeholderText;
 
     this.addEventListener('click', this.onFocus);
-    // todo: handle mouse based blur causing event
 
     this._mode = MODES.INSERT;
   }
