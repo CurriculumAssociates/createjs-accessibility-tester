@@ -45,7 +45,7 @@ export default class Menu extends createjs.Container {
     } = this._label.getBounds();
     const underLine = new createjs.Shape();
     underLine.graphics.setStrokeStyle(3);
-    underLine.graphics.beginStroke('#000');
+    underLine.graphics.beginStroke('#FF4500');
     underLine.graphics.moveTo(0, height + 2);
     underLine.graphics.lineTo(width, height + 2);
     underLine.graphics.endStroke();
