@@ -39,12 +39,23 @@ export default class Menu extends createjs.Container {
       role: AccessibilityModule.ROLES.MENUITEM,
     });
     this.addChild(this._label);
-    // todo: underline the first letter that corrsponds to the accessKey
 
-    const bounds = this._label.getBounds();
+    const {
+      x, y, width, height,
+    } = this._label.getBounds();
+    const underLine = new createjs.Shape();
+    underLine.graphics.setStrokeStyle(3);
+    underLine.graphics.beginStroke('#000');
+    underLine.graphics.moveTo(0, height + 2);
+    underLine.graphics.lineTo(width, height + 2);
+    underLine.graphics.endStroke();
+    this.addChild(underLine);
+    this.underline = underLine;
+    this.underline.visible = false;
+
     this._focusIndicator.graphics
       .beginFill('#31c7ec')
-      .drawRect(bounds.x, 0, bounds.width, menuBarHeight);
+      .drawRect(x, 0, width, menuBarHeight);
     this._itemContainer = new createjs.Container();
     this._itemContainer.y = menuBarHeight;
     this._itemContainer.visible = false;
@@ -60,7 +71,7 @@ export default class Menu extends createjs.Container {
     this._itemContainer.addChild(this._itemContainer._bg);
 
     this._label.hitArea = new createjs.Shape();
-    this._label.hitArea.graphics.beginFill('#ff0000').drawRect(bounds.x, bounds.y, bounds.width, bounds.height);
+    this._label.hitArea.graphics.beginFill('#ff0000').drawRect(x, y, width, height);
     this._label.addEventListener('click', this._onClick);
     this._label.addEventListener('openMenu', this.openMenu);
     this._label.addEventListener('closeMenu', this.closeMenu);
@@ -125,9 +136,11 @@ export default class Menu extends createjs.Container {
 
   onFocus() {
     this._focusIndicator.visible = true;
+    this.underline.visible = true;
   }
 
   onBlur() {
     this._focusIndicator.visible = false;
+    this.underline.visible = false;
   }
 }

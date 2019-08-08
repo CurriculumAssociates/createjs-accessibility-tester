@@ -182,16 +182,6 @@ export default class AppWindow extends createjs.Container {
 
     this._showDefaultScreen();
     this.createGrid();
-
-    // todo: delete
-    window.testApp = this;
-  }
-
-  resize(width, height) {
-    this._menuBar.resize(width, MENU_HEIGHT);
-    this._contentArea.setBounds(0, this._headerArea.getBounds().height
-      + MENU_HEIGHT, width, height - MENU_HEIGHT);
-    // todo
   }
 
   _createMenu(width) {
@@ -283,14 +273,6 @@ export default class AppWindow extends createjs.Container {
       menuItemRadioArray.push(item);
     });
     this.menuItemRadioArray = menuItemRadioArray;
-
-
-    // todo: add a menu for testing checkbox and radio menu items, as well as
-    // popup menus inside another menu
-    // todo: test case for draw order different than accessibility order,
-    // also include scaling as part of this test for screen magnifiers
-    // todo: for caption test case, play audio and/or video and have the
-    // captions display in sync with the audio
 
     const help = new Menu('Help', MENU_HEIGHT, this._nextTab++, 'h');
     const about = new MenuItem('About', this._nextTab++);
