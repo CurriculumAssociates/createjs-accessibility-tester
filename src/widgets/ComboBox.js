@@ -10,6 +10,9 @@ export default class ComboBox extends createjs.Container {
     AccessibilityModule.register({
       displayObject: this,
       role: AccessibilityModule.ROLES.COMBOBOX,
+      accessibleOptions: {
+        expanded: false,
+      },
     });
 
     this._options = options;
