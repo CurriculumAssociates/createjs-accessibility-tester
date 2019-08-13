@@ -757,9 +757,11 @@ export default class AppWindow extends createjs.Container {
       },
     });
     form.addChild(label);
-    optionLabels = ['Graphics Programming', 'Game Programming', 'AI', 'Pathfinding', 'Game Design'];
+    optionLabels = ['Graphics', 'Game Engines', 'AI', 'Pathfinding', 'Game Design'];
     options = _.map(optionLabels, optionLabel => new Option(optionLabel, OPTION_WIDTH, OPTION_HEIGHT, true)); // eslint-disable-line max-len
     const combobox = new ComboBox(options, OPTION_WIDTH, OPTION_HEIGHT, this._nextTab++);
+    combobox.x = 160;
+    combobox.y = 350;
     form.addChild(combobox);
     form.accessible.addChild(combobox);
 

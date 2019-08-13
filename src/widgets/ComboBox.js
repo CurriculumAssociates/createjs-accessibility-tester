@@ -48,7 +48,7 @@ export default class ComboBox extends createjs.Container {
 
   _onCollapedViewClick(evt) {
     this._dropDownView.visible = !this._dropDownView.visible;
-    this._collapsedView.accessible.expanded = this._dropDownView.visible;
+    this.accessible.expanded = this._dropDownView.visible;
     if (this._dropDownView.visible) {
       // make sure the listbox is on top of its sibling DisplayObjects to try
       // to ensure that the dropdown is completely visible
