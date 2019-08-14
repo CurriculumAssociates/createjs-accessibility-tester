@@ -19,7 +19,12 @@ export default class ComboBox extends createjs.Container {
 
     this._createCollapsedView(width, height, tabIndex);
     this._createDropDownView(width, height);
+    this._textBox.accessible.controls = this._dropDownView;
     this._dropDownView.visible = false;
+  }
+
+  get text() {
+    return this._textBox.text;
   }
 
   _createCollapsedView(width, height, tabIndex) {
@@ -42,6 +47,9 @@ export default class ComboBox extends createjs.Container {
     AccessibilityModule.register({
       displayObject: this._arrow,
       role: AccessibilityModule.ROLES.BUTTON,
+      accessibleOptions: {
+        tabIndex: -1,
+      },
     });
     this._arrow.addEventListener('click', this._onCollapedViewClick);
     this._arrow.addEventListener('keyboardClick', this._onCollapedViewClick);

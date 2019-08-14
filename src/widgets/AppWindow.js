@@ -800,9 +800,9 @@ export default class AppWindow extends createjs.Container {
       // the submit button.  This code needs to be fixed to either cleanup
       // the previous createjs.Text instance or use the same instance for
       // all clicks where the displayed string gets updated.
-      label = new createjs.Text(`NAME: ${nameField._text.text}, Comments: ${commentArea._text.text}, MEMBERSHIP: ${membershipList._selectedDisplay.text}, mailingList: ${mailingList.accessible.selectedValue}`, '14px Arial');
+      label = new createjs.Text(`NAME: ${nameField.text}, Comments: ${commentArea.text}, MEMBERSHIP: ${membershipList._selectedDisplay.text}, mailingList: ${mailingList.accessible.selectedValue}, primary interest: ${combobox.text}`, '14px Arial');
       label.x = 10;
-      label.y = 350;
+      label.y = 390;
 
       AccessibilityModule.register({
         displayObject: label,
