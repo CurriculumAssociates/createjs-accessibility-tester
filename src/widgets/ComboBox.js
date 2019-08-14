@@ -83,8 +83,10 @@ export default class ComboBox extends createjs.Container {
       displayObject: this._dropDownView,
       role: AccessibilityModule.ROLES.SINGLESELECTLISTBOX,
       parent: this,
+      accessibleOptions: {
+        tabIndex: -1,
+      },
     });
-    this._dropDownView.accessible.tabIndex = -1;
     this._dropDownView.addEventListener('blur', (evt) => {
       if (this._dropDownView.visible) {
         this._onCollapedViewClick(evt);
