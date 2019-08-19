@@ -1,12 +1,12 @@
 import _ from 'lodash';
-// import KeyCodes from 'keycodes-enum';
+import KeyCodes from 'keycodes-enum';
 import AccessibilityModule from '@curriculumassociates/createjs-accessibility';
 import SingleLineTextInput from './SingleLineTextInput';
 
 export default class ComboBox extends createjs.Container {
   constructor(options, width, height, tabIndex) {
     super();
-    _.bindAll(this, '_onCollapedViewClick', '_onDropDownKeyDown', '_onValueChanged', '_onOptionClick');
+    _.bindAll(this, '_onCollapedViewClick', '_onCollapedViewKeyDown', '_onDropDownKeyDown', '_onValueChanged', '_onOptionClick');
     AccessibilityModule.register({
       displayObject: this,
       role: AccessibilityModule.ROLES.COMBOBOX,
@@ -33,6 +33,8 @@ export default class ComboBox extends createjs.Container {
     const textBoxWidth = width - height;
 
     this._textBox = new SingleLineTextInput(textBoxWidth, height, tabIndex);
+    this._textBox.enableKeyEvents = true;
+    this._textBox.addEventListener('keydown', this._onCollapedViewKeyDown);
     this.addChild(this._textBox);
     this.accessible.addChild(this._textBox);
 
@@ -71,6 +73,25 @@ export default class ComboBox extends createjs.Container {
 
     evt.stopPropagation();
     evt.preventDefault();
+  }
+
+  _onCollapedViewKeyDown(evt) {
+    if (evt.keyCode === KeyCodes.down) {
+      this._dropDownView.visible = true;
+      this.accessible.expanded = true;
+
+      // make sure the listbox is on top of its sibling DisplayObjects to try
+      // to ensure that the dropdown is completely visible
+      this.parent.addChild(this);
+
+      // move focus from the expand button to the drop down list element
+      this._dropDownView.accessible.requestFocus();
+
+      // todo: select first option
+
+      evt.stopPropagation();
+      evt.preventDefault();
+    }
   }
 
   _createDropDownView(width, optionHeight) {
