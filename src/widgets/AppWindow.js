@@ -200,7 +200,7 @@ export default class AppWindow extends createjs.Container {
     this.nav.addChild(this._menuBar);
     this.nav.accessible.addChild(this._menuBar);
 
-    const testCasesMenu = new Menu('Test Cases', MENU_HEIGHT, this._nextTab++, 't');
+    const testCasesMenu = new Menu('Test Cases', MENU_HEIGHT, this._nextTab++, 'T');
     this._menuBar.addMenu(testCasesMenu);
     const testCasesGroup = {
       group1: {
@@ -255,7 +255,7 @@ export default class AppWindow extends createjs.Container {
     });
 
 
-    const testCasesMenuItemRadio = new Menu('Contrast Radio', MENU_HEIGHT, this._nextTab++, 't');
+    const testCasesMenuItemRadio = new Menu('Contrast Radio', MENU_HEIGHT, this._nextTab++, 'c');
     this._menuBar.addMenu(testCasesMenuItemRadio);
     const testCasesMenuRadio = [
       { name: ' Black-Yellow', bgColor: '#000000', textColor: '#ffff00' },

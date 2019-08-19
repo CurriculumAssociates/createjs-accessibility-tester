@@ -39,19 +39,28 @@ export default class Menu extends createjs.Container {
       role: AccessibilityModule.ROLES.MENUITEM,
     });
     this.addChild(this._label);
+    const charArr = label.split('');
+    const font = '16px Arial';
+    const index = _.indexOf(charArr, accessKey);
+    const accessKeyText = new createjs.Text(`${accessKey}`, font);
+    const accesKeyTextWidth = accessKeyText.getBounds().width;
+    let totalWidth = 0;
+    for (let i = 0; i < index; i++) {
+      const text = new createjs.Text(`${charArr[i]}`, font);
+      totalWidth += text.getBounds().width;
+    }
 
+    const underlineStartX = this._label.x + totalWidth;
     const {
       x, y, width, height,
     } = this._label.getBounds();
     const underLine = new createjs.Shape();
     underLine.graphics.setStrokeStyle(3);
     underLine.graphics.beginStroke('#FF4500');
-    underLine.graphics.moveTo(0, height + 2);
-    underLine.graphics.lineTo(width, height + 2);
+    underLine.graphics.moveTo(underlineStartX, height + 2);
+    underLine.graphics.lineTo(underlineStartX + accesKeyTextWidth, height + 2);
     underLine.graphics.endStroke();
     this.addChild(underLine);
-    this.underline = underLine;
-    this.underline.visible = false;
 
     this._focusIndicator.graphics
       .beginFill('#31c7ec')
@@ -136,11 +145,9 @@ export default class Menu extends createjs.Container {
 
   onFocus() {
     this._focusIndicator.visible = true;
-    this.underline.visible = true;
   }
 
   onBlur() {
     this._focusIndicator.visible = false;
-    this.underline.visible = false;
   }
 }

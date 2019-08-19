@@ -76,6 +76,7 @@ export default class MultiLineTextInput extends createjs.Container {
     this._height = height;
 
     this.addEventListener('click', this.onFocus);
+    // todo: handle mouse based blur causing event
     this._mode = MODES.INSERT;
   }
 
