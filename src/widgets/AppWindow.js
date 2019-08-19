@@ -755,23 +755,24 @@ export default class AppWindow extends createjs.Container {
     alert.visible = false;
 
     label = new createjs.Text('', '14px Arial');
+
+
+    AccessibilityModule.register({
+      displayObject: label,
+      parent: form,
+      role: AccessibilityModule.ROLES.NONE,
+      accessibleOptions: {
+        text: label.text,
+      },
+    });
+
+    form.addChild(label);
+    form.accessible.addChild(label);
     // Implementing BUTTON
     const submitCallBack = () => {
       label.text = `NAME: ${nameField._text.text}, Comments: ${commentArea._text.text}, MEMBERSHIP: ${membershipList._selectedDisplay.text}, mailingList: ${mailingList.accessible.selectedValue}`;
       label.x = 10;
       label.y = 350;
-
-      AccessibilityModule.register({
-        displayObject: label,
-        parent: form,
-        role: AccessibilityModule.ROLES.NONE,
-        accessibleOptions: {
-          text: label.text,
-        },
-      });
-
-      form.addChild(label);
-      form.accessible.addChild(label);
 
       // Show alert
       alert.visible = true;
