@@ -94,6 +94,11 @@ export default class SingleLineTextInput extends createjs.Container {
     return this._text.text;
   }
 
+  set text(str) {
+    this._text.text = str;
+    this.accessible.value = str;
+  }
+
   /**
    * Internal function for updating the string displayed in the text input
    * @access private
