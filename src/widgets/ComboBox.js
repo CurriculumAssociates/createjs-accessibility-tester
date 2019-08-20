@@ -76,8 +76,8 @@ export default class ComboBox extends createjs.Container {
       // to ensure that the dropdown is completely visible
       this.parent.addChild(this);
 
-      // move focus from the expand button to the drop down list element
-      this._dropDownView.accessible.requestFocus();
+      // move focus from the expand button to the text box element
+      this._textBox.accessible.requestFocus();
     } else {
       this._textBox.accessible.active = undefined;
     }
