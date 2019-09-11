@@ -76,6 +76,7 @@ export default class MultiLineTextInput extends createjs.Container {
     this._height = height;
 
     this.addEventListener('click', this.onFocus);
+    this.addEventListener('blur', this.onBlur);
     // todo: handle mouse based blur causing event
     this._mode = MODES.INSERT;
   }
@@ -159,7 +160,7 @@ export default class MultiLineTextInput extends createjs.Container {
 
   _onCanvasKeyDown(evt) {
     let evtHandled = false;
-    if ((evt.key >= 'a' && evt.key <= 'z') || (evt.key >= '0' && evt.key <= '9') || evt.key === ' ' || evt.keyCode === KeyCodes.enter) {
+    if ((evt.keyCode >= 65 && evt.keyCode <= 90) || (evt.key >= '0' && evt.key <= '9') || evt.key === ' ' || evt.keyCode === KeyCodes.enter) {
       let char = evt.shiftKey ? evt.key.toUpperCase() : evt.key;
       if (evt.keyCode === KeyCodes.enter) {
         char = '\n';
@@ -226,6 +227,9 @@ export default class MultiLineTextInput extends createjs.Container {
       evtHandled = true;
     } else if (evt.keyCode === KeyCodes.delete) {
       if (this._isSelectionActive()) {
+        this._updateDisplayString([this._text.text.slice(0, this._selection.start), this._text.text.slice(this._selection.end)].join(''));
+        this._cursorToIndex();
+        this._clearSelection();
       } else if (this._cursorIndex < this._text.text.length) {
         this._updateDisplayString([this._text.text.slice(0, this._cursorIndex), this._text.text.slice(this._cursorIndex + 1)].join(''));
         this._cursorToIndex();
@@ -233,6 +237,9 @@ export default class MultiLineTextInput extends createjs.Container {
       evtHandled = true;
     } else if (evt.keyCode === KeyCodes.backspace) {
       if (this._isSelectionActive()) {
+        this._updateDisplayString([this._text.text.slice(0, this._selection.start), this._text.text.slice(this._selection.end)].join(''));
+        this._clearSelection();
+        this._cursorToIndex();
         // todo
       } else if (this._cursorIndex > 0) {
         this._updateDisplayString([this._text.text.slice(0, this._cursorIndex - 1), this._text.text.slice(this._cursorIndex)].join(''));

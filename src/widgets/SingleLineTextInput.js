@@ -85,8 +85,7 @@ export default class SingleLineTextInput extends createjs.Container {
     this.accessible.placeholder = placeholderText;
 
     this.addEventListener('click', this.onFocus);
-    // todo: handle mouse based blur causing event
-
+    this.addEventListener('blur', this.onBlur);
     this._mode = MODES.INSERT;
   }
 
@@ -170,7 +169,7 @@ export default class SingleLineTextInput extends createjs.Container {
 
   _onCanvasKeyDown(evt) {
     let evtHandled = false;
-    if ((evt.key >= 'a' && evt.key <= 'z') || (evt.key >= '0' && evt.key <= '9')) {
+    if ((evt.keyCode >= 65 && evt.keyCode <= 90) || (evt.key >= '0' && evt.key <= '9')) {
       const char = evt.shiftKey ? evt.key.toUpperCase() : evt.key;
       if (this._isSelectionActive()) {
         this._updateDisplayString([this._text.text.slice(0, this._selection.start), char, this._text.text.slice(this._selection.end)].join(''));
@@ -234,9 +233,8 @@ export default class SingleLineTextInput extends createjs.Container {
     } else if (evt.keyCode === KeyCodes.delete) {
       if (this._isSelectionActive()) {
         this._updateDisplayString([this._text.text.slice(0, this._selection.start), this._text.text.slice(this._selection.end)].join(''));
-        this._cursorIndex = this._selection.start;
-        this._clearSelection();
         this._cursorToIndex();
+        this._clearSelection();
       } else if (this._cursorIndex < this._text.text.length) {
         this._updateDisplayString([this._text.text.slice(0, this._cursorIndex), this._text.text.slice(this._cursorIndex + 1)].join(''));
         this._cursorToIndex();
@@ -245,9 +243,8 @@ export default class SingleLineTextInput extends createjs.Container {
     } else if (evt.keyCode === KeyCodes.backspace) {
       if (this._isSelectionActive()) {
         this._updateDisplayString([this._text.text.slice(0, this._selection.start), this._text.text.slice(this._selection.end)].join(''));
-        this._cursorIndex = this._selection.start;
-        this._clearSelection();
         this._cursorToIndex();
+        this._clearSelection();
       } else if (this._cursorIndex > 0) {
         this._updateDisplayString([this._text.text.slice(0, this._cursorIndex - 1), this._text.text.slice(this._cursorIndex)].join(''));
         --this._cursorIndex;
