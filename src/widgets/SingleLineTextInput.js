@@ -10,7 +10,7 @@ const MODES = {
 export default class SingleLineTextInput extends createjs.Container {
   constructor(width, height, tabIndex, placeholderText = '') {
     super();
-    _.bindAll(this, 'onFocus', 'onBlur', '_onCanvasKeyDown', '_onValueChanged', '_onSelectionChanged', '_onMouseDown', '_onMouseMove', '_onMouseUp');
+    _.bindAll(this, 'onFocus', 'onBlur', '_onValueChanged', '_onSelectionChanged', '_onMouseDown', '_onMouseMove', '_onMouseUp');
 
     AccessibilityModule.register({
       accessibleOptions: { tabIndex },

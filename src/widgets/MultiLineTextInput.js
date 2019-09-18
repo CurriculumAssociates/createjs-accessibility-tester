@@ -10,7 +10,7 @@ const MODES = {
 export default class MultiLineTextInput extends createjs.Container {
   constructor(width, height, fontSize, tabIndex) {
     super();
-    _.bindAll(this, 'onFocus', 'onBlur', '_onCanvasKeyDown', '_onValueChanged', '_onSelectionChanged', '_onMouseDown', '_onMouseMove', '_onMouseUp');
+    _.bindAll(this, 'onFocus', 'onBlur', '_onValueChanged', '_onSelectionChanged', '_onMouseDown', '_onMouseMove', '_onMouseUp');
     AccessibilityModule.register({
       accessibleOptions: { tabIndex },
       displayObject: this,
