@@ -804,7 +804,7 @@ export default class AppWindow extends createjs.Container {
 
 
     const resetAll = () => {
-      form.removeChild(label);
+      label.text = '';
       form.accessible.removeChild(label);
       nameField._updateDisplayString('');
       nameField.onBlur();
@@ -814,6 +814,7 @@ export default class AppWindow extends createjs.Container {
       mailingList.onBlur();
       mailingList._unhighlightAll();
       mailingList.accessible.selected = [];
+      combobox.text = '';
     };
 
     const alertDialog = new AlertDialog({

@@ -27,6 +27,10 @@ export default class ComboBox extends createjs.Container {
     return this._textBox.text;
   }
 
+  set text(str) {
+    this._textBox.text = str;
+  }
+
   _createCollapsedView(width, height, tabIndex) {
     // since the arrow for opening the drop down is a square based on the height, calculate
     // the text box width
