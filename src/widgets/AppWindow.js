@@ -51,7 +51,7 @@ import formulaImg1 from './media/formula1.png';
 import formulaImg2 from './media/formula2.png';
 
 const MENU_HEIGHT = 20;
-const OPTION_WIDTH = 100;
+const OPTION_WIDTH = 115;
 const OPTION_HEIGHT = 18;
 const HEADER_HEIGHT = 34;
 const FOOTER_HEIGHT = 30;
