@@ -6,7 +6,7 @@ import SingleLineTextInput from './SingleLineTextInput';
 export default class ComboBox extends createjs.Container {
   constructor(options, width, height, tabIndex) {
     super();
-    _.bindAll(this, '_onCollapedViewBlur', '_onCollapedViewClick', '_onCollapedViewKeyDown', '_onOptionClick');
+    _.bindAll(this, '_onCollapedViewBlur', '_onCollapedViewClick', '_onCollapedViewKeyDown', '_onCollapedViewChange', '_onOptionClick');
     AccessibilityModule.register({
       displayObject: this,
       role: AccessibilityModule.ROLES.COMBOBOX,
@@ -40,6 +40,7 @@ export default class ComboBox extends createjs.Container {
     this._textBox.enableKeyEvents = true;
     this._textBox.addEventListener('keydown', this._onCollapedViewKeyDown);
     this._textBox.addEventListener('blur', this._onCollapedViewBlur);
+    this._textBox.addEventListener('valueChanged', this._onCollapedViewChange);
     this._textBox.accessible.enableKeyEvents = true;
     this.addChild(this._textBox);
     this.accessible.addChild(this._textBox);
@@ -103,6 +104,29 @@ export default class ComboBox extends createjs.Container {
 
       evt.stopPropagation();
       evt.preventDefault();
+    }
+  }
+
+  _onCollapedViewChange(evt) {
+    if (evt.newValue) {
+      let nextY = 0;
+      this._filteredOptions = _.filter(this._options, (option) => {
+        const match = option.value.indexOf(evt.newValue) === 0;
+
+        // to avoid looping over the array of options again after filtering, adjusting their display here
+        option.visible = match;
+        option.y = nextY;
+        nextY += optionHeight;
+
+        return match;
+      });
+    } else {
+      this._filteredOptions = this._options;
+      if (this._dropDownView.visible) {
+        this._dropDownView.visible = false;
+        this.accessible.expanded = this._dropDownView.visible;
+        this._textBox.accessible.active = undefined;
+      }
     }
   }
 
