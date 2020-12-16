@@ -3,10 +3,13 @@ import KeyCodes from 'keycodes-enum';
 import AccessibilityModule from '@curriculumassociates/createjs-accessibility';
 import SingleLineTextInput from './SingleLineTextInput';
 
+/**
+ * A combobox that allows the user to enter whatever they like and the listbox part is suggested values
+ */
 export default class ComboBox extends createjs.Container {
   constructor(options, width, height, tabIndex) {
     super();
-    _.bindAll(this, '_onCollapedViewBlur', '_onCollapedViewClick', '_onCollapedViewKeyDown', '_onCollapedViewChange', '_onOptionClick');
+    _.bindAll(this, '_onCollapedViewClick', '_onCollapedViewKeyDown', '_onCollapedViewChange', '_onOptionClick', '_onDropDownViewBlur', '_onDropDownKeyDown', '_onValueChanged');
     AccessibilityModule.register({
       displayObject: this,
       role: AccessibilityModule.ROLES.COMBOBOX,
@@ -39,7 +42,6 @@ export default class ComboBox extends createjs.Container {
     this._textBox = new SingleLineTextInput(textBoxWidth, height, tabIndex);
     this._textBox.enableKeyEvents = true;
     this._textBox.addEventListener('keydown', this._onCollapedViewKeyDown);
-    this._textBox.addEventListener('blur', this._onCollapedViewBlur);
     this._textBox.addEventListener('valueChanged', this._onCollapedViewChange);
     this._textBox.accessible.enableKeyEvents = true;
     this.addChild(this._textBox);
@@ -66,12 +68,6 @@ export default class ComboBox extends createjs.Container {
     this.accessible.addChild(this._arrow);
   }
 
-  _onCollapedViewBlur(evt) {
-    if (this._dropDownView.visible) {
-      this._onCollapedViewClick(evt);
-    }
-  }
-
   _onCollapedViewClick(evt) {
     this._textBox.accessible.requestFocus();
     this._dropDownView.visible = !this._dropDownView.visible;
@@ -80,9 +76,6 @@ export default class ComboBox extends createjs.Container {
       // make sure the listbox is on top of its sibling DisplayObjects to try
       // to ensure that the dropdown is completely visible
       this.parent.addChild(this);
-
-      // move focus from the expand button to the text box element
-      this._textBox.accessible.requestFocus();
     } else {
       this._textBox.accessible.active = undefined;
     }
@@ -92,7 +85,7 @@ export default class ComboBox extends createjs.Container {
   }
 
   _onCollapedViewKeyDown(evt) {
-    if (evt.keyCode === KeyCodes.down) {
+    if (evt.keyCode === KeyCodes.down || evt.keyCode === KeyCodes.up) {
       this._dropDownView.visible = true;
       this.accessible.expanded = true;
 
@@ -100,11 +93,35 @@ export default class ComboBox extends createjs.Container {
       // to ensure that the dropdown is completely visible
       this.parent.addChild(this);
 
-      // todo: select first option
+      this._dropDownView.accessible.requestFocus();
+      this._updateSelectedOption(this._getAdjacentOption(evt.keyCode === KeyCodes.down));
 
       evt.stopPropagation();
       evt.preventDefault();
     }
+  }
+
+  _getAdjacentOption(next) {
+    let index = _.findIndex(this._options, child => child.selected);
+    if (next) {
+      index = Math.min(index + 1, this._options.length - 1);
+    } else {
+      index = Math.max(index - 1, 0);
+    }
+
+    return this._options[index];
+  }
+
+  _updateSelectedOption(option) {
+    this._options.forEach((opt) => {
+      opt.selected = false;
+    });
+    option.selected = true;
+
+    this.text = option._label.text;
+
+    this._dropDownView.accessible.active = option;
+    this._dropDownView.accessible.selected = option;
   }
 
   _onCollapedViewChange(evt) {
@@ -140,7 +157,14 @@ export default class ComboBox extends createjs.Container {
       displayObject: this._dropDownView,
       role: AccessibilityModule.ROLES.SINGLESELECTLISTBOX,
       parent: this,
+      accessibleOptions: {
+        tabIndex: -1,
+      },
     });
+    this._dropDownView.accessible.enableKeyEvents = true;
+    this._dropDownView.addEventListener('keydown', this._onDropDownKeyDown);
+    this._dropDownView.addEventListener('valueChanged', this._onValueChanged);
+    this._dropDownView.addEventListener('blur', this._onDropDownViewBlur);
 
     const bg = new createjs.Shape();
     bg.graphics.beginStroke('#000000').setStrokeStyle(1).beginFill('#ffffff').drawRect(0, 0, width, optionHeight * this._options.length);
@@ -160,5 +184,23 @@ export default class ComboBox extends createjs.Container {
 
     // close the dropdown
     this._onCollapedViewClick(evt);
+  }
+
+  _onDropDownViewBlur(evt) {
+    this._dropDownView.visible = false;
+    this.accessible.expanded = this._dropDownView.visible;
+  }
+
+  _onDropDownKeyDown(evt) {
+    if (evt.keyCode === KeyCodes.enter || evt.keyCode === KeyCodes.esc) {
+      this._textBox.accessible.requestFocus();
+      this._dropDownView.visible = false;
+      this.accessible.expanded = this._dropDownView.visible;
+      evt.preventDefault();
+    }
+  }
+
+  _onValueChanged(evt) {
+    this._updateSelectedOption(evt.selectedDisplayObject);
   }
 }
