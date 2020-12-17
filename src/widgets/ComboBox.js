@@ -4,7 +4,8 @@ import AccessibilityModule from '@curriculumassociates/createjs-accessibility';
 import SingleLineTextInput from './SingleLineTextInput';
 
 /**
- * A combobox that allows the user to enter whatever they like and the listbox part is suggested values
+ * A combobox that allows the user to enter whatever they like and the listbox
+ * part is suggested values
  */
 export default class ComboBox extends createjs.Container {
   constructor(options, width, height, tabIndex) {
@@ -173,7 +174,7 @@ export default class ComboBox extends createjs.Container {
     this._onCollapedViewClick(evt);
   }
 
-  _onDropDownViewBlur(evt) {
+  _onDropDownViewBlur() {
     this._dropDownView.visible = false;
     this.accessible.expanded = this._dropDownView.visible;
   }
