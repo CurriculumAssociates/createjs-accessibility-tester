@@ -125,25 +125,12 @@ export default class ComboBox extends createjs.Container {
   }
 
   _onCollapedViewChange(evt) {
-    if (evt.newValue) {
-      let nextY = 0;
-      this._filteredOptions = _.filter(this._options, (option) => {
-        const match = option.value.indexOf(evt.newValue) === 0;
-
-        // to avoid looping over the array of options again after filtering, adjusting their display here
-        option.visible = match;
-        option.y = nextY;
-        nextY += optionHeight;
-
-        return match;
-      });
-    } else {
-      this._filteredOptions = this._options;
-      if (this._dropDownView.visible) {
-        this._dropDownView.visible = false;
-        this.accessible.expanded = this._dropDownView.visible;
-        this._textBox.accessible.active = undefined;
-      }
+    _.forEach(this._options, (opt) => {
+      opt.selected = false;
+    });
+    const matchingOption = _.find(this._options, option => option.value === evt.newValue);
+    if (matchingOption) {
+      matchingOption.selected = true;
     }
   }
 
