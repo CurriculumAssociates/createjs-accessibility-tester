@@ -26,6 +26,12 @@ export default class Grid extends createjs.Container {
     this.rows = [];
     this.setBounds(0, 0, this.totalWidth, this.cellHeight * this.rowcount);
     this.createTable();
+
+    const firstCellWidget = _.get(data, '[0][0]');
+    if (!firstCellWidget || !firstCellWidget.value) {
+      throw new Error('Invalid data sent to grid widget: the first row does not have a cell');
+    }
+    firstCellWidget.value.accessible.tabIndex = tabIndex;
   }
 
   createTable() {
@@ -72,22 +78,10 @@ export default class Grid extends createjs.Container {
 
   setupLayout() {
     _.forEach(this.rows, (row, i) => {
-      row.set({
-        y: this.cellHeight * i,
-      });
-      row.rowIndex = i;
-      row.accessible.rowindex = i;
+      row.y = this.cellHeight * i;
 
       _.forEach(row.children, (cell, j) => {
-        cell.set({
-          x: _.sum(_.slice(this.cellWidths, 0, j)),
-        });
-        cell.rowIndex = i;
-        cell.colIndex = j;
-        cell.accessible.rowindex = i;
-        cell.accessible.colindex = j;
-        cell.accessible.rowspan = 1;
-        cell.accessible.colspan = 1;
+        cell.x = _.sum(_.slice(this.cellWidths, 0, j));
       });
     });
   }
