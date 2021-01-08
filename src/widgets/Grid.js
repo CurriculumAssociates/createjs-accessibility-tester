@@ -6,8 +6,16 @@ export default class Grid extends createjs.Container {
     super();
     AccessibilityModule.register({
       displayObject: this,
+      role: AccessibilityModule.ROLES.GRID,
+    });
+    this.table = new createjs.Container();
+    AccessibilityModule.register({
+      displayObject: this.table,
       role: AccessibilityModule.ROLES.TABLEBODY,
     });
+    this.addChild(this.table);
+    this.accessible.addChild(this.table);
+
     this.tabIndex = tabIndex;
     this.data = data;
     this.rowCount = this.data.length + 1; // +1 due to header row
@@ -28,10 +36,10 @@ export default class Grid extends createjs.Container {
   createRows() {
     for (let i = 0; i < this.rowCount; i++) {
       const row = this._createContainer(this.totalWidth, this.cellHeight);
-      this.addChild(row);
+      this.table.addChild(row);
       AccessibilityModule.register({
         displayObject: row,
-        parent: this,
+        parent: this.table,
         role: AccessibilityModule.ROLES.ROW,
       });
       _.forEach(this.data[i], (data, index) => {
@@ -55,7 +63,6 @@ export default class Grid extends createjs.Container {
             role: AccessibilityModule.ROLES.GRIDCELL,
           });
         }
-        cell.accessible.tabIndex = this.tabIndex++;
         cell.accessible.addChild(cell.cellContent);
       });
 
@@ -103,11 +110,10 @@ export default class Grid extends createjs.Container {
         left = (this.cellWidths[index] - cellContentBounds.width) / 2;
         break;
     }
-    cellContent.set({
-      x: left,
-      y: ((this.cellHeight - cellContentBounds.height) >= 0)
-        ? ((this.cellHeight - cellContentBounds.height) / 2) : 0,
-    });
+    cellContent.x = left;
+    cellContent.y = ((this.cellHeight - cellContentBounds.height) >= 0)
+      ? ((this.cellHeight - cellContentBounds.height) / 2)
+      : 0;
 
     cell.cellContent = cellContent;
     const shape = new createjs.Shape();

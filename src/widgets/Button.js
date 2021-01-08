@@ -98,9 +98,9 @@ export default class Button extends createjs.Container {
     this.focusRect.visible = false;
   }
 
-  _onMouseDown() {
+  _onMouseDown(evt) {
     this.accessible.requestFocus();
-    this.callBack();
+    this.callBack(evt);
   }
 
   _onMouseUp() {
