@@ -4,13 +4,14 @@ import AccessibilityModule from '@curriculumassociates/createjs-accessibility';
 export default class Button extends createjs.Container {
   constructor(options, tabIndex, callBack = _.noop) {
     super();
-    _.bindAll(this, '_onFocus', '_onBlur', '_onMouseDown', '_onMouseUp');
+    _.bindAll(this, '_onFocus', '_onBlur', '_onMouseDown', '_onMouseUp', '_onClick');
     this.callBack = callBack;
     this.addEventListener('focus', this._onFocus);
     this.addEventListener('blur', this._onBlur);
     this.addEventListener('mousedown', this._onMouseDown);
     this.addEventListener('mouseup', this._onMouseUp);
-    this.addEventListener('keyboardClick', this._onMouseDown);
+    this.addEventListener('click', this._onClick);
+    this.addEventListener('keyboardClick', this._onClick);
 
     options.tabIndex = tabIndex;
     AccessibilityModule.register({
@@ -90,7 +91,6 @@ export default class Button extends createjs.Container {
   }
 
   _onFocus() {
-    this.accessible.requestFocus();
     this.focusRect.visible = true;
   }
 
@@ -98,12 +98,16 @@ export default class Button extends createjs.Container {
     this.focusRect.visible = false;
   }
 
-  _onMouseDown(evt) {
-    this.accessible.requestFocus();
-    this.callBack(evt);
+  _onMouseDown() {
+    this.background.visible = false;
   }
 
   _onMouseUp() {
     this.background.visible = true;
+  }
+
+  _onClick(evt) {
+    this.accessible.requestFocus();
+    this.callBack(evt);
   }
 }
