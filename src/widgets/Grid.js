@@ -29,7 +29,7 @@ export default class Grid extends createjs.Container {
 
     const firstCellWidget = _.get(data, '[0][0]');
     if (!firstCellWidget || !firstCellWidget.value) {
-      throw new Error('Invalid data sent to grid widget: the first row does not have a cell');
+      throw new Error('Invalid data sent to grid widget: the first row\'s first cell does not have a widget');
     }
     firstCellWidget.value.accessible.tabIndex = tabIndex;
   }
