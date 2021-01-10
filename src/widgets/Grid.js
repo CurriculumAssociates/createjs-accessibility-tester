@@ -18,7 +18,7 @@ export default class Grid extends createjs.Container {
 
     this.tabIndex = tabIndex;
     this.data = data;
-    this.rowCount = this.data.length + 1; // +1 due to header row
+    this.rowCount = this.data.length;
     this.colCount = this.data[0].length;
     this.cellWidths = _.map(this.data[0], 'cellWidth');
     this.cellHeight = this.data[0][0].cellHeight;
