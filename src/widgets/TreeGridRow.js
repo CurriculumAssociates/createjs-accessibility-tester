@@ -167,7 +167,12 @@ export default class TreeGridRow extends createjs.Container {
     return container;
   }
 
-  _createText({ value, maxWidth, bold = false, fontSize = 18, }) {
+  _createText({
+    value,
+    maxWidth,
+    bold = false,
+    fontSize = 18,
+  }) {
     const boldOption = bold ? 'bold' : '';
     const text = new createjs.Text().set({
       text: value,

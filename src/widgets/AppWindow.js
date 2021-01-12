@@ -19,7 +19,6 @@ import SingleLineTextInput from './SingleLineTextInput';
 import MultiLineTextInput from './MultiLineTextInput';
 import CheckBox from './CheckBox';
 import Search from './Search';
-import Radio from './Radio';
 import RadioGroup from './RadioGroup';
 import Draggable from './Draggable';
 import Slider from './Slider';
