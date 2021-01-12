@@ -2348,7 +2348,7 @@ export default class AppWindow extends createjs.Container {
     };
 
     const row1 = {
-      rowData: ['III', 'Anish', '420'],
+      rowData: ['III', 'Anish', '5'],
       childrenData: 1,
       type: 'cell',
       level: 1,
@@ -2375,32 +2375,23 @@ export default class AppWindow extends createjs.Container {
     };
 
     const row5 = {
-      rowData: ['XI', 'Sudhir', '20'],
+      rowData: ['XI', 'Sudhir', '30'],
       level: 1,
       type: 'cell',
       childrenData: 0,
     };
 
-    const rows = [row0, row1, row2, row3, row4, row5];
+    const rows = [ row0, row1, row2, row3, row4, row5 ];
     const data = {
       rows,
       cellWidth: 265,
       cellHeight: 60,
     };
 
-    const tableBody = new TreeGrid(data, this._nextTab++);
-    const table = new createjs.Container();
-    table.addChild(tableBody);
-    AccessibilityModule.register({
-      displayObject: table,
-      role: AccessibilityModule.ROLES.TREEGRID,
-    });
-    table.accessible.addChild(tableBody);
-    table.accessible.rowcount = tableBody.rowCount;
-    table.accessible.colcount = tableBody.colCount;
-    this._contentArea.addChild(table);
-    this._contentArea.accessible.addChild(table);
-    table.y = 20;
+    const treeGrid = new TreeGrid(data, this._nextTab++);
+    this._contentArea.addChild(treeGrid);
+    this._contentArea.accessible.addChild(treeGrid);
+    treeGrid.y = 20;
   }
 
   _showTreeTestCase() {
