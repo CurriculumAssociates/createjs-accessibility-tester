@@ -110,47 +110,6 @@ export default class TreeGrid extends createjs.Container {
     this._setupLayout();
   }
 
-  _toggleTreeVisibility(evt) {
-    // todo
-    // const { currentTarget } =  evt;
-    // currentTarget.opened = !currentTarget.opened;
-    // currentTarget.hasChildren && currentTarget.toggleArrow();
-    // if (currentTarget.opened) {
-    //   this.open(currentTarget);
-    // } else {
-    //   this.close(currentTarget);
-    // }
-    // this.setupLayout();
-  }
-
-  // open(currentTarget) {
-  //   if (currentTarget.hasChildren) {
-  //     const lastChild = this.updateVisibility(currentTarget, true);
-  //     if (lastChild.opened && lastChild.hasChildren > 0) {
-  //       this.open(lastChild);
-  //     }
-  //   }
-  // }
-  //
-  // close(currentTarget) {
-  //   if (currentTarget.data.childrenData > 0) {
-  //     const lastChild = this.updateVisibility(currentTarget, false);
-  //     if (!lastChild.visible && lastChild.data.childrenData > 0) {
-  //       this.close(lastChild);
-  //     }
-  //   }
-  // }
-
-  // updateVisibility(currentTarget, visible) {
-  //   let lastChild;
-  //   const noOfchildren = currentTarget.index + currentTarget.data.childrenData;
-  //   for (let i = currentTarget.index + 1; i < noOfchildren + 1; i++) {
-  //     this.rows[i].visible = visible;
-  //     lastChild = this.rows[i];
-  //   }
-  //   return lastChild;
-  // }
-
   _setupLayout() {
     let previousRow = this._rows[0];
     for (let i = 1; i < this._rows.length; i++) {
