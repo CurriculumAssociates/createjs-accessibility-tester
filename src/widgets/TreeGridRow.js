@@ -34,7 +34,7 @@ export default class TreeGridRow extends createjs.Container {
     this.cellHeight = rowHeight;
 
     const bg = new createjs.Shape();
-    bg.graphics.beginStroke('black').beginFill('#cccbbb').dr(0, 0, rowWidth, rowHeight);
+    bg.graphics.beginStroke('black').beginFill('#cccbbb').drawRect(0, 0, rowWidth, rowHeight);
     bg.setBounds(0, 0, rowWidth, rowHeight);
     this.addChild(bg);
 
