@@ -6,7 +6,7 @@ const OFFSET = 20;
 
 export default class TreeGrid extends createjs.Container {
   constructor(data, tabIndex) {
-    super(data, tabIndex);
+    super();
     _.bindAll(this, '_onCollapseRow', '_onExpandRow');
 
     AccessibilityModule.register({
