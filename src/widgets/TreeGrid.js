@@ -43,7 +43,8 @@ export default class TreeGrid extends createjs.Container {
 
     this._createTable();
 
-    const firstFocusableRow = _.find(this._table.accessible.children, row => !_.isUndefined(row.accessible.tabIndex));
+    const firstFocusableRow = _.find(this._table.accessible.children,
+      row => !_.isUndefined(row.accessible.tabIndex));
     firstFocusableRow.accessible.tabIndex = tabIndex;
 
     window.foo = this;
