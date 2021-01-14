@@ -31,7 +31,6 @@ export default class TreeGrid extends createjs.Container {
     });
     this.addChild(this._table);
     this.accessible.addChild(this._table);
-    this._tabIndex = tabIndex;
     this._data = data.rows;
     this._numRows = data.rows.length;
     this._numCols = data.rows[0].rowData.length;
@@ -43,6 +42,9 @@ export default class TreeGrid extends createjs.Container {
     this.setBounds(0, 0, this._totalWidth, this._totalHeight);
 
     this._createTable();
+
+    const firstFocusableRow = _.find(this._table.accessible.children, row => !_.isUndefined(row.accessible.tabIndex));
+    firstFocusableRow.accessible.tabIndex = tabIndex;
 
     window.foo = this;
   }
@@ -57,7 +59,7 @@ export default class TreeGrid extends createjs.Container {
     const rowHeight = this._cellHeight;
     const cellCount = this._numCols;
     for (let i = 0; i < this._data.length; i++) {
-      const row = new TreeGridRow(this._data[i], i, rowWidth, rowHeight, cellCount, this._tabIndex++); // eslint-disable-line max-len
+      const row = new TreeGridRow(this._data[i], i, rowWidth, rowHeight, cellCount); // eslint-disable-line max-len
       row.collapsedArrow.addEventListener('click', this._onExpandRow);
       row.expandedArrow.addEventListener('click', this._onCollapseRow);
       this._table.addChild(row);

@@ -2387,7 +2387,7 @@ export default class AppWindow extends createjs.Container {
       cellHeight: 60,
     };
 
-    const treeGrid = new TreeGrid(data, this._nextTab++);
+    const treeGrid = new TreeGrid(data, 0);
     this._contentArea.addChild(treeGrid);
     this._contentArea.accessible.addChild(treeGrid);
     treeGrid.y = 20;

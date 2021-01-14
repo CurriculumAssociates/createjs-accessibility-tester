@@ -2,13 +2,13 @@ import _ from 'lodash';
 import AccessibilityModule from '@curriculumassociates/createjs-accessibility';
 
 export default class TreeGridRow extends createjs.Container {
-  constructor(data, index, rowWidth, rowHeight, cellCount, tabIndex) {
+  constructor(data, index, rowWidth, rowHeight, cellCount) {
     super();
-    _.bindAll(this, '_onBlur', '_onFocus');
+    _.bindAll(this, '_onBlur', '_onFocus', '_onCellBlur', '_onCellFocus');
     AccessibilityModule.register({
       accessibleOptions: {
         level: data.level,
-        tabIndex,
+        tabIndex: data.type === 'header' ? undefined : -1,
       },
       displayObject: this,
       role: AccessibilityModule.ROLES.ROW,
@@ -24,7 +24,6 @@ export default class TreeGridRow extends createjs.Container {
       ],
     });
     this.setBounds(0, 0, rowWidth, rowHeight);
-    this.tabIndex = tabIndex;
     this.data = data;
     this.type = data.type;
     this.index = index;
@@ -114,7 +113,6 @@ export default class TreeGridRow extends createjs.Container {
       cell.x = this.cellWidth * index;
 
       this.addChild(cell);
-      cell.accessible.tabIndex = this.tabIndex++;
     });
   }
 
@@ -155,8 +153,8 @@ export default class TreeGridRow extends createjs.Container {
     cell.addChildAt(focusRect, 0);
     focusRect.visible = false;
     cell.focusRect = focusRect;
-    // cell.addEventListener('focus', this.onFocus.bind(cell));
-    // cell.addEventListener('blur', this.onBlur.bind(cell));
+    cell.addEventListener('focus', this._onCellFocus);
+    cell.addEventListener('blur', this._onCellBlur);
     return cell;
   }
 
@@ -184,12 +182,32 @@ export default class TreeGridRow extends createjs.Container {
   }
 
   _onFocus(evt) {
-    this.focusRect.visible = true;
+    this._focusRect.visible = true;
     evt.preventDefault();
     evt.stopPropagation();
+
+    const focusablesInRow = _.flatten(
+      _.map(this.accessible.children, (cellDisplayObject) => {
+        const interactiveChildren = _.filter(cellDisplayObject.accessible.children,
+          widget => !_.isUndefined(widget.accessible.tabIndex));
+        return interactiveChildren;
+      })
+    );
+    _.forEach(focusablesInRow, (focusable) => {
+      focusable.accessible.tabIndex = 0;
+    });
+    // todo: setup so that when the last focusable element in the row gets a blur, focusable elements in the row's focusable elements get removed from the tab order
   }
 
   _onBlur() {
-    this.focusRect.visible = false;
+    this._focusRect.visible = false;
+  }
+
+  _onCellFocus(evt) {
+    evt.target.focusRect.visible = true;
+  }
+
+  _onCellBlur(evt) {
+    evt.target.focusRect.visible = false;
   }
 }
