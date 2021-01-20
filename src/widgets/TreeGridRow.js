@@ -196,7 +196,6 @@ export default class TreeGridRow extends createjs.Container {
     _.forEach(focusablesInRow, (focusable) => {
       focusable.accessible.tabIndex = 0;
     });
-    // todo: setup so that when the last focusable element in the row gets a blur, focusable elements in the row's focusable elements get removed from the tab order
   }
 
   _onBlur() {
