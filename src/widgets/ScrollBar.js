@@ -39,7 +39,7 @@ export default class ScrollBar extends createjs.Container {
     });
 
     this.contentContainer = this.container.getChildAt(0);
-    this.accessible.controls = this.contentContainer;
+    this.accessible.controls = this.container;
 
     this.showTrack();
     this.createThumb();

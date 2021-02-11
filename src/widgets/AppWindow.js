@@ -1810,12 +1810,13 @@ export default class AppWindow extends createjs.Container {
     });
 
     const scrollBar = new ScrollBar(feedHolder, this._nextTab++);
-    feedHolder.addChild(scrollBar);
-    feedHolder.accessible.addChild(scrollBar);
-    scrollBar.x = holderWidth - scrollBar.getBounds().width;
+    scrollBar.x = feedHolder.x + holderWidth - scrollBar.getBounds().width;
+    scrollBar.y = feedHolder.y;
 
     this._contentArea.addChild(feedHolder);
     this._contentArea.accessible.addChild(feedHolder);
+    this._contentArea.addChild(scrollBar);
+    this._contentArea.accessible.addChild(scrollBar);
   }
 
 
