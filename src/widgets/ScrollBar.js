@@ -13,8 +13,8 @@ export default class ScrollBar extends createjs.Container {
     this.container = container;
 
     const { width, height } = this.container.getBounds();
-    this.scrollWidth = width;
-    this.scrollHeight = height;
+    this.scrollWidth = Math.round(width);
+    this.scrollHeight = Math.round(height);
 
     this.setBounds(0, 0, TRACKWIDTH, this.scrollHeight);
     AccessibilityModule.register({
@@ -46,7 +46,7 @@ export default class ScrollBar extends createjs.Container {
     this.applyMask();
 
     this.thumbBounds = this.thumb.getBounds();
-    this.accessible.max = this.scrollHeight - this.thumbBounds.height;
+    this.accessible.max = this.scrollHeight - Math.round(this.thumbBounds.height);
     this.factor = this.getFactor();
     this.gapY = 0;
 
