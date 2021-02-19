@@ -308,7 +308,6 @@ export default class AppWindow extends createjs.Container {
     this._contentArea.addChild(figure);
     this._contentArea.accessible.addChild(figure);
 
-
     const testDisplayObject1 = new createjs.Text('Welcome to the Createjs Accessibility Module test program.', '16px Arial');
     testDisplayObject1.x = 144;
     testDisplayObject1.y = 400;
@@ -2177,8 +2176,8 @@ export default class AppWindow extends createjs.Container {
     });
     table.accessible.addChild(tableBody);
 
-    table.accessible.rowcount = tableBody.rowCount;
-    table.accessible.colcount = tableBody.colCount;
+    table.accessible.rowCount = tableBody.rowCount;
+    table.accessible.colCount = tableBody.colCount;
 
     const { width, height } = table.getBounds();
     const holderWidth = width;
