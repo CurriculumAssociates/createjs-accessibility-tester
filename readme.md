@@ -1,5 +1,5 @@
-# Createjs Accessibility Module Test App and Reference Implementation
-
+# (DEPRECATED) Createjs Accessibility Module Test App
+This repository is deprecated because the test app has been merged into the main CAM repository at https://github.com/CurriculumAssociates/createjs-accessibility.
 ## Description
 The Createjs Accessibility Module (abbreviated CAM, located at https://github.com/CurriculumAssociates/createjs-accessibility) allows for annotating DisplayObjects with accessibility information which is used to translate the DisplayObjects to the DOM to help a web page's canvas content to meet WCAG 2.1.  This test app allows for testing any changes to that module in browsers that may or may not have an Assistive Technology (AT) in use.  Also, some of the ARIA roles require a particular nesting structure to function correctly (e.g. menubar) and this test app also servers as a reference implementation of doing that with CAM.
 
